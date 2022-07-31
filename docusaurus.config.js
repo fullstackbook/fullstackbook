@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Full Stack Book',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'The TL;DR Guide Book For Full Stack Developers',
   url: 'https://www.fullstackbook.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -57,9 +57,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Full Stack Book',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Full Stack Book',
           src: 'img/logo.svg',
         },
         items: [
@@ -67,7 +67,7 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Start Here',
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
