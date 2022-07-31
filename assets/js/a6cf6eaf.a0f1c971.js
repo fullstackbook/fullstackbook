@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkfullstackbook=self.webpackChunkfullstackbook||[]).push([[6193],{5229:l=>{l.exports=JSON.parse('{"label":"hola","permalink":"/fullstackbook/blog/tags/hola","allTagsPath":"/fullstackbook/blog/tags","count":1}')}}]);
