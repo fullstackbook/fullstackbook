@@ -2,8 +2,7 @@
 
 ## Installation
 
-Terminal
-```
+```bash title="Terminal"
 mkdir fullstackbook-todo-fastapi
 cd fullstackbook-todo-fastapi
 python3 -m venv venv
@@ -66,7 +65,7 @@ def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 ```
 
-## Controller / Service
+## Routers
 
 ```python title="routers/todos.py"
 from typing import List
@@ -145,7 +144,7 @@ class Settings(BaseSettings):
 
 Terminal
 
-```bash
+```bash title="Terminal"
 alembic init alembic
 alembic revision -m "create todos table"
 alembic upgrade head
