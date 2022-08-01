@@ -1,4 +1,4 @@
-# To Do
+# VanillaJS
 
 ## HTML
 

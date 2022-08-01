@@ -1,4 +1,4 @@
-# To Do App
+# Spring Boot
 
 ## Installation
 
