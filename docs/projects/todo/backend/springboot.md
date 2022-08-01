@@ -156,139 +156,80 @@ The ToDoService is injected into this controller via constructor injection.
 `@PathVariable` reads the path parameter /todos/`{id}`.
 :::
 
-## Configuration
+## Request/Response
 
-Spring Boot provides a mechanism to configure your app. For example, in `application.properties`, we define our application name, database credentials, the database migration config file, and the port to listen on.
+Data Transfer Objects (DTO), are used for defining request and response object structure. Sometimes they are passed around the code for other reasons, but mostly used for requests and responses.
 
-```txt title="src/main/resources/application.properties"
-spring.application.name=${APP_NAME:Full Stack Book To Do}
-spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot}
-spring.datasource.username=${DB_USER:postgres}
-spring.datasource.password=${DB_PASSWORD:}
-spring.liquibase.change-log=classpath:db/changelog/changelog.xml
-server.port=8000
-```
-
-:::note
-The format of configuration is:
-
-`foo.bar=${ENV_VARIABLE_NAME:default value}`
-
-For example:
-The `spring.application.name` configuration has a default value of `Full Stack Book To Do`, but can be overridden by the `APP_NAME` environment variable.
-:::
-
-:::note
-In IntelliJ, the environment variables can be changed by clicking on the "green hammer" icon -> Edit Configurations -> Environment -> Environment Variables.
-
-In VSCode, the environment variables can be changed by using a `.env` file. The file name and path can be changed by going to Run and Debug -> "cog" icon to open `launch.json`.
-:::
-
-:::caution
-Do not check in production secrets, such as api keys and db credentials, into the git repository. Those should be loaded in as environment variables.
-:::
-
-
-## Database Migrations
-
-Most real world projects will use migrations to make incremental schema changes to the database.
-
-```xml title="src/main/resources/db/changelog/changelog.xml"
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
-      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
-    <includeAll path="db/changelog/*.sql" />
-</databaseChangeLog>
-```
-
-```sql title="src/main/resources/db/changelog/changelog-1.0.sql"
---liquibase formatted sql
-
---changeset fullstackbook:1
-create table todos (
-  id bigserial primary key,
-  name text
-);
-```
-
-```sql title="src/main/resources/db/changelog/changelog-2.0.sql"
---liquibase formatted sql
-
---changeset fullstackbook:2
-alter table todos add column completed boolean not null default false;
-```
-
-:::note
-Migrations are run automatically when you start the server.
-
-Liquibase supports writing the migrations in an xml format. It has some advantages like rollbacks and being database agnostic, but in order to keep things simple, we opted for raw sql.
-:::
-
-:::tip
-Do not use automatic schema generation since that is also only used in development.
-
-It is best to keep development and production as similar as possible, so it is good to start with a production grade migration tool and database.
-:::
-
-## ORM
-
-JPA stands for Java Persistence API, a Java specification. Hibernate is an ORM, and an implementation of JPA. ORM stands for Object Relational Mapping.
-
-This provides a way for us to map database tables to objects and interact with our database using methods provided by the ORM.
-
-```java title="src/main/java/com/example/fullstackbooktodospringboot/model/ToDo.java"
-package com.example.fullstackbooktodospringboot.model;
+```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/CreateToDoDto.java"
+package com.example.fullstackbooktodospringboot.dto;
 
 import lombok.Data;
 
-import javax.persistence.*;
-
-@Entity
 @Data
-@Table(name = "todos")
-public class ToDo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
+public class CreateToDoDto {
     private String name;
+    private Boolean completed;
+}
+```
 
-    @Column
+```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/ErrorDto.java"
+package com.example.fullstackbooktodospringboot.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class ErrorDto {
+    private String msg;
+}
+
+```
+
+```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/ToDoDto.java"
+package com.example.fullstackbooktodospringboot.dto;
+
+import com.example.fullstackbooktodospringboot.model.ToDo;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class ToDoDto {
+    private Long id;
+    private String name;
+    private Boolean completed;
+
+    public ToDoDto(ToDo entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.completed = entity.getCompleted();
+    }
+}
+```
+
+:::note
+The constructor allows us to map an entity to the DTO. Another way to do this is to create a mapper class or using a mapping library like MapStruct.
+
+For simplicity, we will use a constructor.
+:::
+
+```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/UpdateToDoDto.java"
+package com.example.fullstackbooktodospringboot.dto;
+
+import lombok.Data;
+
+@Data
+public class UpdateToDoDto {
+    private String name;
     private Boolean completed;
 }
 ```
 
 :::note
-The `@Entity` annotation is provided by Spring Data JPA. It declares the model.
-
-The `@Data` annotation is provided by Lombok, and gives us free getters and setters, reducing much boilerplate java code.
-
-The `@Id` annotation and `GeneratedValue` annotation declares the auto-increment primary key.
-
-The `@Column` annotation declares a database field mapping.
+We leverage Lombok's `@Data` and `@AllArgsConstructor` to reduce much of the boilerplate.
 :::
 
-```java title="src/main/java/com/example/fullstackbooktodospringboot/repository/ToDoRepository.java"
-package com.example.fullstackbooktodospringboot.repository;
-
-import com.example.fullstackbooktodospringboot.model.ToDo;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-
-public interface ToDoRepository extends JpaRepository<ToDo, Long> {
-    List<ToDo> findByCompleted(Boolean completed);
-}
-```
-
-:::note
-The JpaRepository class is provided by Spring Data JPA. Note `Jpa<ToDo, Long>`, ToDo is the model we defined above. Long is the type of the primary key id. With this declaration, we now have a way to interact with the database. See https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html.
-:::
 
 ## Service
 
@@ -384,79 +325,141 @@ There are multiple schools of thought as to the best way to handle exceptions. S
 If all you're doing is building a REST API, then it's probably fine to throw the ResponseStatusException at the service layer.
 :::
 
-## Request/Response
+## ORM
 
-Data Transfer Objects (DTO), are used for defining request and response object structure. Sometimes they are passed around the code for other reasons, but mostly used for requests and responses.
+JPA stands for Java Persistence API, a Java specification. Hibernate is an ORM, and an implementation of JPA. ORM stands for Object Relational Mapping.
 
-```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/CreateToDoDto.java"
-package com.example.fullstackbooktodospringboot.dto;
+This provides a way for us to map database tables to objects and interact with our database using methods provided by the ORM.
+
+```java title="src/main/java/com/example/fullstackbooktodospringboot/model/ToDo.java"
+package com.example.fullstackbooktodospringboot.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
+@Entity
 @Data
-public class CreateToDoDto {
+@Table(name = "todos")
+public class ToDo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String name;
+
+    @Column
     private Boolean completed;
 }
 ```
 
-```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/ErrorDto.java"
-package com.example.fullstackbooktodospringboot.dto;
+:::note
+The `@Entity` annotation is provided by Spring Data JPA. It declares the model.
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+The `@Data` annotation is provided by Lombok, and gives us free getters and setters, reducing much boilerplate java code.
 
-@Data
-@AllArgsConstructor
-public class ErrorDto {
-    private String msg;
-}
+The `@Id` annotation and `GeneratedValue` annotation declares the auto-increment primary key.
 
-```
+The `@Column` annotation declares a database field mapping.
+:::
 
-```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/ToDoDto.java"
-package com.example.fullstackbooktodospringboot.dto;
+```java title="src/main/java/com/example/fullstackbooktodospringboot/repository/ToDoRepository.java"
+package com.example.fullstackbooktodospringboot.repository;
 
 import com.example.fullstackbooktodospringboot.model.ToDo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Data
-@AllArgsConstructor
-public class ToDoDto {
-    private Long id;
-    private String name;
-    private Boolean completed;
+import java.util.List;
 
-    public ToDoDto(ToDo entity) {
-        this.id = entity.getId();
-        this.name = entity.getName();
-        this.completed = entity.getCompleted();
-    }
+public interface ToDoRepository extends JpaRepository<ToDo, Long> {
+    List<ToDo> findByCompleted(Boolean completed);
 }
 ```
 
 :::note
-The constructor allows us to map an entity to the DTO. Another way to do this is to create a mapper class or using a mapping library like MapStruct.
-
-For simplicity, we will use a constructor.
+The JpaRepository class is provided by Spring Data JPA. Note `Jpa<ToDo, Long>`, ToDo is the model we defined above. Long is the type of the primary key id. With this declaration, we now have a way to interact with the database. See https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html.
 :::
 
-```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/UpdateToDoDto.java"
-package com.example.fullstackbooktodospringboot.dto;
 
-import lombok.Data;
+## Database Migrations
 
-@Data
-public class UpdateToDoDto {
-    private String name;
-    private Boolean completed;
-}
+Most real world projects will use migrations to make incremental schema changes to the database.
+
+```xml title="src/main/resources/db/changelog/changelog.xml"
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+    <includeAll path="db/changelog/*.sql" />
+</databaseChangeLog>
+```
+
+```sql title="src/main/resources/db/changelog/changelog-1.0.sql"
+--liquibase formatted sql
+
+--changeset fullstackbook:1
+create table todos (
+  id bigserial primary key,
+  name text
+);
+```
+
+```sql title="src/main/resources/db/changelog/changelog-2.0.sql"
+--liquibase formatted sql
+
+--changeset fullstackbook:2
+alter table todos add column completed boolean not null default false;
 ```
 
 :::note
-We leverage Lombok's `@Data` and `@AllArgsConstructor` to reduce much of the boilerplate.
+Migrations are run automatically when you start the server.
+
+Liquibase supports writing the migrations in an xml format. It has some advantages like rollbacks and being database agnostic, but in order to keep things simple, we opted for raw sql.
 :::
+
+:::tip
+Do not use automatic schema generation since that is also only used in development.
+
+It is best to keep development and production as similar as possible, so it is good to start with a production grade migration tool and database.
+:::
+
+## Configuration
+
+Spring Boot provides a mechanism to configure your app. For example, in `application.properties`, we define our application name, database credentials, the database migration config file, and the port to listen on.
+
+```txt title="src/main/resources/application.properties"
+spring.application.name=${APP_NAME:Full Stack Book To Do}
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot}
+spring.datasource.username=${DB_USER:postgres}
+spring.datasource.password=${DB_PASSWORD:}
+spring.liquibase.change-log=classpath:db/changelog/changelog.xml
+server.port=8000
+```
+
+:::note
+The format of configuration is:
+
+`foo.bar=${ENV_VARIABLE_NAME:default value}`
+
+For example:
+The `spring.application.name` configuration has a default value of `Full Stack Book To Do`, but can be overridden by the `APP_NAME` environment variable.
+:::
+
+:::note
+In IntelliJ, the environment variables can be changed by clicking on the "green hammer" icon -> Edit Configurations -> Environment -> Environment Variables.
+
+In VSCode, the environment variables can be changed by using a `.env` file. The file name and path can be changed by going to Run and Debug -> "cog" icon to open `launch.json`.
+:::
+
+:::caution
+Do not check in production secrets, such as api keys and db credentials, into the git repository. Those should be loaded in as environment variables.
+:::
+
+
 
 ## Exception Handling
 

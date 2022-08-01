@@ -120,31 +120,80 @@ def delete_todo(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="to do not found")
 ```
 
-## Configuration
+## Request / Response
 
-```txt title=".env.example"
-DATABASE_HOST=localhost
-DATABASE_NAME=fullstackbook-todo-fastapi
-DATABASE_USER=postgres
-DATABASE_PASSWORD=
-DATABASE_PORT=5432
-APP_NAME="Full Stack Book To Do"
-```
+```python title="schemas.py"
+from pydantic import BaseModel
 
-```python title="config.py"
-from pydantic import BaseSettings
+class ToDoRequest(BaseModel):
+    name: str
+    completed: bool
 
-
-class Settings(BaseSettings):
-    app_name: str = "Awesome API"
+class ToDoResponse(BaseModel):
+    name: str
+    completed: bool
+    id: int
 
     class Config:
-        env_file = ".env"
+        orm_mode = True
+```
+
+## ORM
+
+```python title="models.py"
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
+from database import Base
+
+
+class ToDo(Base):
+    __tablename__ = "todos"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    completed = Column(Boolean, default=False)
+```
+
+```python title="crud.py"
+from sqlalchemy.orm import Session
+import models, schemas
+
+def create_todo(db: Session, todo: schemas.ToDoRequest):
+    db_todo = models.ToDo(name=todo.name, completed=todo.completed)
+    db.add(db_todo)
+    db.commit()
+    db.refresh(db_todo)
+    return db_todo
+
+def read_todos(db: Session, completed: bool):
+    if completed is None:
+        return db.query(models.ToDo).all()
+    else:
+        return db.query(models.ToDo).filter(models.ToDo.completed == completed).all()
+
+def read_todo(db: Session, id: int):
+    return db.query(models.ToDo).filter(models.ToDo.id == id).first()
+
+def update_todo(db: Session, id: int, todo: schemas.ToDoRequest):
+    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
+    if db_todo is None:
+        return None
+    db.query(models.ToDo).filter(models.ToDo.id == id).update({'name': todo.name, 'completed': todo.completed})
+    db.commit()
+    db.refresh(db_todo)
+    return db_todo
+
+def delete_todo(db: Session, id: int):
+    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
+    if db_todo is None:
+        return None
+    db.query(models.ToDo).filter(models.ToDo.id == id).delete()
+    db.commit()
+    return True
 ```
 
 ## Database Migrations
-
-Terminal
 
 ```bash title="Terminal"
 alembic init alembic
@@ -299,77 +348,26 @@ def downgrade():
     op.execute("alter table todos drop column completed")
 ```
 
-## ORM
+## Configuration
 
-```python title="models.py"
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
-
-from database import Base
-
-
-class ToDo(Base):
-    __tablename__ = "todos"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    completed = Column(Boolean, default=False)
+```txt title=".env.example"
+DATABASE_HOST=localhost
+DATABASE_NAME=fullstackbook-todo-fastapi
+DATABASE_USER=postgres
+DATABASE_PASSWORD=
+DATABASE_PORT=5432
+APP_NAME="Full Stack Book To Do"
 ```
 
-```python title="crud.py"
-from sqlalchemy.orm import Session
-import models, schemas
+```python title="config.py"
+from pydantic import BaseSettings
 
-def create_todo(db: Session, todo: schemas.ToDoRequest):
-    db_todo = models.ToDo(name=todo.name, completed=todo.completed)
-    db.add(db_todo)
-    db.commit()
-    db.refresh(db_todo)
-    return db_todo
 
-def read_todos(db: Session, completed: bool):
-    if completed is None:
-        return db.query(models.ToDo).all()
-    else:
-        return db.query(models.ToDo).filter(models.ToDo.completed == completed).all()
-
-def read_todo(db: Session, id: int):
-    return db.query(models.ToDo).filter(models.ToDo.id == id).first()
-
-def update_todo(db: Session, id: int, todo: schemas.ToDoRequest):
-    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
-    if db_todo is None:
-        return None
-    db.query(models.ToDo).filter(models.ToDo.id == id).update({'name': todo.name, 'completed': todo.completed})
-    db.commit()
-    db.refresh(db_todo)
-    return db_todo
-
-def delete_todo(db: Session, id: int):
-    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
-    if db_todo is None:
-        return None
-    db.query(models.ToDo).filter(models.ToDo.id == id).delete()
-    db.commit()
-    return True
-```
-
-## Request / Response
-
-```python title="schemas.py"
-from pydantic import BaseModel
-
-class ToDoRequest(BaseModel):
-    name: str
-    completed: bool
-
-class ToDoResponse(BaseModel):
-    name: str
-    completed: bool
-    id: int
+class Settings(BaseSettings):
+    app_name: str = "Awesome API"
 
     class Config:
-        orm_mode = True
+        env_file = ".env"
 ```
 
 ## Testing

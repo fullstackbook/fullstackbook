@@ -13,91 +13,7 @@ createdb fullstackbook-todo-nestjs
 npm install --save @nestjs/typeorm typeorm pg
 ```
 
-## Configuration
-
-```txt title=".env.example"
-DATABASE_HOST=localhost
-DATABASE_NAME=fullstackbook-todo-nestjs
-DATABASE_USER=postgres
-DATABASE_PASSWORD=
-DATABASE_PORT=5432
-APP_NAME="Full Stack Book To Do"
-```
-
-## Database Migration
-
-```json title="package.json"
-"scripts": {
-  "typeorm": "typeorm-ts-node-commonjs -d src/data-source.ts"
-}
-```
-
-```bash title="Terminal"
-npx typeorm migration:create create-todos-table
-npx typeorm migration:create add-completed-to-todos
-npm run typeorm migration:run
-npm run typeorm migration:revert
-```
-
-```ts title="src/data-source.ts"
-import "reflect-metadata"
-import { DataSource } from "typeorm"
-import { Todo } from "./todo/entities/todo.entity"
-import 'dotenv/config'
-
-export const AppDataSource = new DataSource({
-  type: "postgres",
-  host: process.env.DATABASE_HOST,
-  port: +process.env.DATABASE_PORT,
-  username: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
-  synchronize: false,
-  logging: false,
-  entities: [Todo],
-  migrations: ["./src/migration/*.ts"],
-  subscribers: [],
-})
-```
-
-```ts title="src/migration/1659141868030-create-todos-table.ts"
-import { MigrationInterface, QueryRunner } from "typeorm"
-
-export class createTodosTable1659141868030 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`
-        create table todos (
-            id bigserial primary key,
-            name text
-        );
-        `);
-    }
-
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`drop table todos;`)
-    }
-
-}
-```
-
-```ts title="src/migration/1659143656931-add-completed-to-todos.ts"
-import { MigrationInterface, QueryRunner } from "typeorm"
-
-export class addCompletedToTodos1659143656931 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`alter table todos add column completed boolean not null default false`);
-    }
-
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`alter table todos drop column completed`);
-    }
-
-}
-```
-
-## Entry Point / CORS / Exception Handler
+## Entry Point / CORS
 
 ```ts title="src/main.ts"
 import { NestFactory } from '@nestjs/core';
@@ -111,33 +27,6 @@ async function bootstrap() {
   await app.listen(8000);
 }
 bootstrap();
-```
-
-```ts title="src/http-exception.filter.ts"
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Logger } from '@nestjs/common';
-import { Request, Response } from 'express';
-
-@Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger(HttpExceptionFilter.name);
-
-  catch(exception: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
-    const status = exception.getStatus();
-    const res = exception.getResponse();
-    this.logger.error(res);
-    response
-      .status(status)
-      .json({
-        statusCode: status,
-        timestamp: new Date().toISOString(),
-        path: request.url,
-        message: res['message']
-      });
-  }
-}
 ```
 
 ## App Resource
@@ -460,6 +349,119 @@ export class TodoService {
 
   remove(id: number) {
     this.todoRepository.delete(id);
+  }
+}
+```
+
+## Database Migration
+
+```json title="package.json"
+"scripts": {
+  "typeorm": "typeorm-ts-node-commonjs -d src/data-source.ts"
+}
+```
+
+```bash title="Terminal"
+npx typeorm migration:create create-todos-table
+npx typeorm migration:create add-completed-to-todos
+npm run typeorm migration:run
+npm run typeorm migration:revert
+```
+
+```ts title="src/data-source.ts"
+import "reflect-metadata"
+import { DataSource } from "typeorm"
+import { Todo } from "./todo/entities/todo.entity"
+import 'dotenv/config'
+
+export const AppDataSource = new DataSource({
+  type: "postgres",
+  host: process.env.DATABASE_HOST,
+  port: +process.env.DATABASE_PORT,
+  username: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  synchronize: false,
+  logging: false,
+  entities: [Todo],
+  migrations: ["./src/migration/*.ts"],
+  subscribers: [],
+})
+```
+
+```ts title="src/migration/1659141868030-create-todos-table.ts"
+import { MigrationInterface, QueryRunner } from "typeorm"
+
+export class createTodosTable1659141868030 implements MigrationInterface {
+
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        queryRunner.query(`
+        create table todos (
+            id bigserial primary key,
+            name text
+        );
+        `);
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        queryRunner.query(`drop table todos;`)
+    }
+
+}
+```
+
+```ts title="src/migration/1659143656931-add-completed-to-todos.ts"
+import { MigrationInterface, QueryRunner } from "typeorm"
+
+export class addCompletedToTodos1659143656931 implements MigrationInterface {
+
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        queryRunner.query(`alter table todos add column completed boolean not null default false`);
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        queryRunner.query(`alter table todos drop column completed`);
+    }
+
+}
+```
+
+## Configuration
+
+```txt title=".env.example"
+DATABASE_HOST=localhost
+DATABASE_NAME=fullstackbook-todo-nestjs
+DATABASE_USER=postgres
+DATABASE_PASSWORD=
+DATABASE_PORT=5432
+APP_NAME="Full Stack Book To Do"
+```
+
+## Exception Handling
+
+```ts title="src/http-exception.filter.ts"
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Logger } from '@nestjs/common';
+import { Request, Response } from 'express';
+
+@Catch(HttpException)
+export class HttpExceptionFilter implements ExceptionFilter {
+  private readonly logger = new Logger(HttpExceptionFilter.name);
+
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+    const status = exception.getStatus();
+    const res = exception.getResponse();
+    this.logger.error(res);
+    response
+      .status(status)
+      .json({
+        statusCode: status,
+        timestamp: new Date().toISOString(),
+        path: request.url,
+        message: res['message']
+      });
   }
 }
 ```
