@@ -19,8 +19,6 @@ Dependencies:
 
 ## Entry Point / CORS
 
-In order to receive traffic from other domains on the browser, we will have to include the URL in the CORS configuration.
-
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/FullstackbookTodoSpringbootApplication.java"
 package com.example.fullstackbooktodospringboot;
 
@@ -52,8 +50,6 @@ public class FullstackbookTodoSpringbootApplication {
 
 ## Controller
 
-We start with a simple Hello World. And as a sanity check, we will log out a configuration value, the name of the application.
-
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/controller/AppController.java"
 package com.example.fullstackbooktodospringboot.controller;
 
@@ -78,13 +74,6 @@ public class AppController {
 }
 ```
 
-:::note
-LoggerFactory is one way to set up logging.
-
-`@Value` annotation reads the configuration values from `application.properties` and provides it to the controller.
-:::
-
-The controller is the entry point of our API, where we capture HTTP requests and send them off to our services for processing.
 
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/controller/ToDoController.java"
 package com.example.fullstackbooktodospringboot.controller;
@@ -142,23 +131,7 @@ public class ToDoController {
 
 ```
 
-:::note
-The ToDoService is injected into this controller via constructor injection.
-
-`@RestController` is provided by the Spring Web Dependency.
-
-`@RequestMapping` scopes all endpoints to the base "/todos" path.
-
-`@RequestParam` reads the query string parameter. ?completed=`{boolean}`.
-
-`@RequestBody` reads the JSON payload and maps it to the Data Transfer Object (DTO).
-
-`@PathVariable` reads the path parameter /todos/`{id}`.
-:::
-
-## Request/Response
-
-Data Transfer Objects (DTO), are used for defining request and response object structure. Sometimes they are passed around the code for other reasons, but mostly used for requests and responses.
+## DTO
 
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/CreateToDoDto.java"
 package com.example.fullstackbooktodospringboot.dto;
@@ -208,12 +181,6 @@ public class ToDoDto {
 }
 ```
 
-:::note
-The constructor allows us to map an entity to the DTO. Another way to do this is to create a mapper class or using a mapping library like MapStruct.
-
-For simplicity, we will use a constructor.
-:::
-
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/UpdateToDoDto.java"
 package com.example.fullstackbooktodospringboot.dto;
 
@@ -226,14 +193,7 @@ public class UpdateToDoDto {
 }
 ```
 
-:::note
-We leverage Lombok's `@Data` and `@AllArgsConstructor` to reduce much of the boilerplate.
-:::
-
-
 ## Service
-
-Service is the layer between Controller and Repository. It is where the business logic lives. In a typical flow, requests are sent to the service from the controller, the service processes the request by making necessary API calls or database queries, constructing a response in the form of a Data Transfer Object (DTO), and sending it back to the controller.
 
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/service/ToDoService.java"
 package com.example.fullstackbooktodospringboot.service;
@@ -309,27 +269,7 @@ public class ToDoService {
 }
 ```
 
-:::note
-The `@Service` annotation is functionally the same as `@Component` in that they are both included in Spring's component scan and used to declare an injectable object. The only difference is in the semantic meaning of service and component. Service indicates a place that holds business logic, while component is more generic.
-
-The response DTOs, also considered Plain Old Java Objects (POJOs), are converted into JSON under the hood, by a library called Jackson. Using DTOs gives us flexibility in constructing our JSON API.
-:::
-
-:::caution
-Three different types of exceptions were used in this example to demonstrate how to handle multiple exception types. In a real project, you'll probably want to pick one style and stick to it.
-
-There are multiple schools of thought as to the best way to handle exceptions. Some prefer to not include HTTP exceptions in the service layer. And others think it is ok since it keeps thing much simpler.
-:::
-
-:::tip
-If all you're doing is building a REST API, then it's probably fine to throw the ResponseStatusException at the service layer.
-:::
-
 ## ORM
-
-JPA stands for Java Persistence API, a Java specification. Hibernate is an ORM, and an implementation of JPA. ORM stands for Object Relational Mapping.
-
-This provides a way for us to map database tables to objects and interact with our database using methods provided by the ORM.
 
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/model/ToDo.java"
 package com.example.fullstackbooktodospringboot.model;
@@ -354,16 +294,6 @@ public class ToDo {
 }
 ```
 
-:::note
-The `@Entity` annotation is provided by Spring Data JPA. It declares the model.
-
-The `@Data` annotation is provided by Lombok, and gives us free getters and setters, reducing much boilerplate java code.
-
-The `@Id` annotation and `GeneratedValue` annotation declares the auto-increment primary key.
-
-The `@Column` annotation declares a database field mapping.
-:::
-
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/repository/ToDoRepository.java"
 package com.example.fullstackbooktodospringboot.repository;
 
@@ -377,14 +307,7 @@ public interface ToDoRepository extends JpaRepository<ToDo, Long> {
 }
 ```
 
-:::note
-The JpaRepository class is provided by Spring Data JPA. Note `Jpa<ToDo, Long>`, ToDo is the model we defined above. Long is the type of the primary key id. With this declaration, we now have a way to interact with the database. See https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html.
-:::
-
-
 ## Database Migrations
-
-Most real world projects will use migrations to make incremental schema changes to the database.
 
 ```xml title="src/main/resources/db/changelog/changelog.xml"
 <?xml version="1.0" encoding="UTF-8"?>
@@ -415,21 +338,7 @@ create table todos (
 alter table todos add column completed boolean not null default false;
 ```
 
-:::note
-Migrations are run automatically when you start the server.
-
-Liquibase supports writing the migrations in an xml format. It has some advantages like rollbacks and being database agnostic, but in order to keep things simple, we opted for raw sql.
-:::
-
-:::tip
-Do not use automatic schema generation since that is also only used in development.
-
-It is best to keep development and production as similar as possible, so it is good to start with a production grade migration tool and database.
-:::
-
 ## Configuration
-
-Spring Boot provides a mechanism to configure your app. For example, in `application.properties`, we define our application name, database credentials, the database migration config file, and the port to listen on.
 
 ```txt title="src/main/resources/application.properties"
 spring.application.name=${APP_NAME:Full Stack Book To Do}
@@ -439,27 +348,6 @@ spring.datasource.password=${DB_PASSWORD:}
 spring.liquibase.change-log=classpath:db/changelog/changelog.xml
 server.port=8000
 ```
-
-:::note
-The format of configuration is:
-
-`foo.bar=${ENV_VARIABLE_NAME:default value}`
-
-For example:
-The `spring.application.name` configuration has a default value of `Full Stack Book To Do`, but can be overridden by the `APP_NAME` environment variable.
-:::
-
-:::note
-In IntelliJ, the environment variables can be changed by clicking on the "green hammer" icon -> Edit Configurations -> Environment -> Environment Variables.
-
-In VSCode, the environment variables can be changed by using a `.env` file. The file name and path can be changed by going to Run and Debug -> "cog" icon to open `launch.json`.
-:::
-
-:::caution
-Do not check in production secrets, such as api keys and db credentials, into the git repository. Those should be loaded in as environment variables.
-:::
-
-
 
 ## Exception Handling
 
@@ -502,14 +390,6 @@ class GlobalControllerExceptionHandler {
 }
 ```
 
-:::note
-The `@ControllerAdvice` annotation in the code above declares a global exception handler for the RestController class.
-
-The `@ExceptionHandler` annotation is used to declare a handler for each type of exception we want to provide custom handling logic for. For example, logging and returning custom responses.
-
-The `@Log4j2` annotation is provided by lombok and a shorthand for creating a logger object made available to the class as `log`.
-:::
-
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/exception/ToDoException.java"
 package com.example.fullstackbooktodospringboot.exception;
 
@@ -527,13 +407,7 @@ public class ToDoException extends RuntimeException {
 }
 ```
 
-:::note
-A custom exception is probably useful if you have specific exception handling requirements.
-:::
-
 ## Testing
-
-Spring Boot provides support for unit testing with MockMvc and MockBean.
 
 ```java title="src/test/java/com/example/fullstackbooktodospringboot/controller/AppControllerTest.java"
 package com.example.fullstackbooktodospringboot.controller;
@@ -565,14 +439,6 @@ public class AppControllerTest {
 
 }
 ```
-
-:::note
-In the AppControllerTest, we are making a request to the root endpoint and checking the content of the response.
-
-We are using the `@Autowired` annotation to inject MockMvc, so that we can perform the request.
-
-`@Test` declares a unit test.
-:::
 
 ```java title="src/test/java/com/example/fullstackbooktodospringboot/controller/ToDoControllerTest.java"
 package com.example.fullstackbooktodospringboot.controller;
@@ -621,10 +487,6 @@ public class ToDoControllerTest {
 
 ```
 
-:::note
-We are mocking out the `toDoService.getToDos()` method and providing our own return value. This allows us to test the controller in isolation.
-:::
-
 ```java title="src/test/java/com/example/fullstackbooktodospringboot/service/ToDoServiceTest.java"
 package com.example.fullstackbooktodospringboot.service;
 
@@ -668,7 +530,3 @@ public class ToDoServiceTest {
 }
 
 ```
-
-:::note
-In ToDoServiceTest, we are the `@MockBean` annotation to mock out the `toDoRepository.findAll()` method, so that we can test the service in isolation.
-:::
