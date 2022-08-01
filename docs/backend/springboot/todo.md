@@ -15,11 +15,44 @@ Dependencies:
 - Liquibase Migration
 - PostgreSQL Driver
 
+## Entry Point / CORS
+
+In order to receive traffic from other domains on the browser, we will have to include the URL in the CORS configuration.
+
+```java title="src/main/java/com/example/fullstackbooktodospringboot/FullstackbookTodoSpringbootApplication.java"
+package com.example.fullstackbooktodospringboot;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@SpringBootApplication
+public class FullstackbookTodoSpringbootApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(FullstackbookTodoSpringbootApplication.class, args);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "DELETE").allowedOrigins("http://localhost:3000");
+            }
+        };
+    }
+
+}
+```
+
 ## Controller
 
 We start with a simple Hello World. And as a sanity check, we will log out a configuration value, the name of the application.
 
-```java title="AppController.java"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/controller/AppController.java"
 package com.example.fullstackbooktodospringboot.controller;
 
 import org.slf4j.Logger;
@@ -51,7 +84,7 @@ LoggerFactory is one way to set up logging.
 
 The controller is the entry point of our API, where we capture HTTP requests and send them off to our services for processing.
 
-```java title="ToDoController.java"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/controller/ToDoController.java"
 package com.example.fullstackbooktodospringboot.controller;
 
 import com.example.fullstackbooktodospringboot.dto.CreateToDoDto;
@@ -125,7 +158,7 @@ The ToDoService is injected into this controller via constructor injection.
 
 Spring Boot provides a mechanism to configure your app. For example, in `application.properties`, we define our application name, database credentials, the database migration config file, and the port to listen on.
 
-```txt title="application.properties"
+```txt title="src/main/resources/application.properties"
 spring.application.name=${APP_NAME:Full Stack Book To Do}
 spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot}
 spring.datasource.username=${DB_USER:postgres}
@@ -158,7 +191,7 @@ Do not check in production secrets, such as api keys and db credentials, into th
 
 Most real world projects will use migrations to make incremental schema changes to the database.
 
-```xml title="changelog.xml"
+```xml title="src/main/resources/db/changelog/changelog.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
@@ -170,7 +203,7 @@ Most real world projects will use migrations to make incremental schema changes 
 </databaseChangeLog>
 ```
 
-```sql title="changelog-1.0.sql"
+```sql title="src/main/resources/db/changelog/changelog-1.0.sql"
 --liquibase formatted sql
 
 --changeset fullstackbook:1
@@ -180,7 +213,7 @@ create table todos (
 );
 ```
 
-```sql title="changelog-2.0.sql"
+```sql title="src/main/resources/db/changelog/changelog-2.0.sql"
 --liquibase formatted sql
 
 --changeset fullstackbook:2
@@ -205,7 +238,7 @@ JPA stands for Java Persistence API, a Java specification. Hibernate is an ORM, 
 
 This provides a way for us to map database tables to objects and interact with our database using methods provided by the ORM.
 
-```java title="ToDo.java"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/model/ToDo.java"
 package com.example.fullstackbooktodospringboot.model;
 
 import lombok.Data;
@@ -238,7 +271,7 @@ The `@Id` annotation and `GeneratedValue` annotation declares the auto-increment
 The `@Column` annotation declares a database field mapping.
 :::
 
-```java title="ToDoRepository.java"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/repository/ToDoRepository.java"
 package com.example.fullstackbooktodospringboot.repository;
 
 import com.example.fullstackbooktodospringboot.model.ToDo;
@@ -259,7 +292,7 @@ The JpaRepository class is provided by Spring Data JPA. Note `Jpa<ToDo, Long>`, 
 
 Service is the layer between Controller and Repository. It is where the business logic lives. In a typical flow, requests are sent to the service from the controller, the service processes the request by making necessary API calls or database queries, constructing a response in the form of a Data Transfer Object (DTO), and sending it back to the controller.
 
-```java title="ToDoService.java"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/service/ToDoService.java"
 package com.example.fullstackbooktodospringboot.service;
 
 import com.example.fullstackbooktodospringboot.dto.CreateToDoDto;
@@ -353,7 +386,7 @@ If all you're doing is building a REST API, then it's probably fine to throw the
 
 Data Transfer Objects (DTO), are used for defining request and response object structure. Sometimes they are passed around the code for other reasons, but mostly used for requests and responses.
 
-```java title="CreateToDoDto"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/CreateToDoDto.java"
 package com.example.fullstackbooktodospringboot.dto;
 
 import lombok.Data;
@@ -365,7 +398,7 @@ public class CreateToDoDto {
 }
 ```
 
-```java title="ErrorDto"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/ErrorDto.java"
 package com.example.fullstackbooktodospringboot.dto;
 
 import lombok.AllArgsConstructor;
@@ -379,7 +412,7 @@ public class ErrorDto {
 
 ```
 
-```java title="ToDoDto"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/ToDoDto.java"
 package com.example.fullstackbooktodospringboot.dto;
 
 import com.example.fullstackbooktodospringboot.model.ToDo;
@@ -407,7 +440,7 @@ The constructor allows us to map an entity to the DTO. Another way to do this is
 For simplicity, we will use a constructor.
 :::
 
-```java title="UpdateToDoDto"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/dto/UpdateToDoDto.java"
 package com.example.fullstackbooktodospringboot.dto;
 
 import lombok.Data;
@@ -425,7 +458,7 @@ We leverage Lombok's `@Data` and `@AllArgsConstructor` to reduce much of the boi
 
 ## Exception Handling
 
-```java title="GlobalControllerExceptionHandler.java"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/exception/GlobalControllerExceptionHandler.java"
 package com.example.fullstackbooktodospringboot.exception;
 
 import com.example.fullstackbooktodospringboot.dto.ErrorDto;
@@ -472,7 +505,7 @@ The `@ExceptionHandler` annotation is used to declare a handler for each type of
 The `@Log4j2` annotation is provided by lombok and a shorthand for creating a logger object made available to the class as `log`.
 :::
 
-```java title="ToDoException"
+```java title="src/main/java/com/example/fullstackbooktodospringboot/exception/ToDoException.java"
 package com.example.fullstackbooktodospringboot.exception;
 
 public class ToDoException extends RuntimeException {
@@ -493,45 +526,11 @@ public class ToDoException extends RuntimeException {
 A custom exception is probably useful if you have specific exception handling requirements.
 :::
 
-## CORS
-
-In order to receive traffic from other domains on the browser, we will have to include the URL in the CORS configuration.
-
-```java title="FullstackbookTodoSpringbootApplication.java"
-package com.example.fullstackbooktodospringboot;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-@SpringBootApplication
-public class FullstackbookTodoSpringbootApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(FullstackbookTodoSpringbootApplication.class, args);
-    }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "DELETE").allowedOrigins("http://localhost:3000");
-            }
-        };
-    }
-
-}
-
-```
-
 ## Testing
 
 Spring Boot provides support for unit testing with MockMvc and MockBean.
 
-```java title="AppControllerTest.java"
+```java title="src/test/java/com/example/fullstackbooktodospringboot/controller/AppControllerTest.java"
 package com.example.fullstackbooktodospringboot.controller;
 
 import org.junit.jupiter.api.Test;
@@ -570,7 +569,7 @@ We are using the `@Autowired` annotation to inject MockMvc, so that we can perfo
 `@Test` declares a unit test.
 :::
 
-```java title="ToDoControllerTest.java"
+```java title="src/test/java/com/example/fullstackbooktodospringboot/controller/ToDoControllerTest.java"
 package com.example.fullstackbooktodospringboot.controller;
 
 import com.example.fullstackbooktodospringboot.dto.ToDoDto;
@@ -621,7 +620,7 @@ public class ToDoControllerTest {
 We are mocking out the `toDoService.getToDos()` method and providing our own return value. This allows us to test the controller in isolation.
 :::
 
-```java title="ToDoServiceTest.java"
+```java title="src/test/java/com/example/fullstackbooktodospringboot/service/ToDoServiceTest.java"
 package com.example.fullstackbooktodospringboot.service;
 
 import com.example.fullstackbooktodospringboot.dto.ToDoDto;
