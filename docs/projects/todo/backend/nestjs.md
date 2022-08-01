@@ -437,7 +437,7 @@ DATABASE_PORT=5432
 APP_NAME="Full Stack Book To Do"
 ```
 
-## Exception Handling
+## Exception Handler
 
 ```ts title="src/http-exception.filter.ts"
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Logger } from '@nestjs/common';

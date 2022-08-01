@@ -9,9 +9,11 @@ mkdir fullstackbook-todo-fastapi
 cd fullstackbook-todo-fastapi
 python3 -m venv venv
 . venv/bin/activate
-pip install fastapi "uvicorn[standard]" alembic psycopg2
+pip install fastapi "uvicorn[standard]" alembic psycopg2 pytest requests
+pip freeze > requirements.txt
 uvicorn main:app --reload
 createdb fullstackbook-todo-fastapi
+psql fullstackbook-todo-fastapi
 ```
 
 ## Entry Point / CORS / Exception Handler
@@ -120,7 +122,7 @@ def delete_todo(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="to do not found")
 ```
 
-## Request / Response
+## Schemas
 
 ```python title="schemas.py"
 from pydantic import BaseModel
@@ -200,7 +202,6 @@ alembic init alembic
 alembic revision -m "create todos table"
 alembic upgrade head
 alembic downgrade -1
-psql fullstackbook-todo-fastapi
 ```
 
 ```python title="alembic/env.py"

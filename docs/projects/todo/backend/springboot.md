@@ -349,7 +349,7 @@ spring.liquibase.change-log=classpath:db/changelog/changelog.xml
 server.port=8000
 ```
 
-## Exception Handling
+## Exception Handler
 
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/exception/GlobalControllerExceptionHandler.java"
 package com.example.fullstackbooktodospringboot.exception;
