@@ -13,7 +13,7 @@ npm install --save @nestjs/typeorm typeorm pg
 
 ## Configuration
 
-```bash title=".env.example"
+```txt title=".env.example"
 DATABASE_HOST=localhost
 DATABASE_NAME=fullstackbook-todo-nestjs
 DATABASE_USER=postgres

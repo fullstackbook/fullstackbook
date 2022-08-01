@@ -120,7 +120,7 @@ def delete_todo(id: int, db: Session = Depends(get_db)):
 
 ## Configuration
 
-```bash title=".env.example"
+```txt title=".env.example"
 DATABASE_HOST=localhost
 DATABASE_NAME=fullstackbook-todo-fastapi
 DATABASE_USER=postgres
