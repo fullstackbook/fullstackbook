@@ -34,7 +34,7 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Example Front End and Back End projects implemented in multiple languages
+        Example projects with UI Mockups and API Contracts implemented in multiple languages
         and frameworks.
       </>
     ),
