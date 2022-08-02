@@ -14,6 +14,10 @@ pip freeze > requirements.txt
 uvicorn main:app --reload
 createdb fullstackbook-todo-fastapi
 psql fullstackbook-todo-fastapi
+alembic init alembic
+alembic revision -m "create todos table"
+alembic upgrade head
+alembic downgrade -1
 ```
 
 ## Entry Point / CORS / Exception Handler
@@ -196,13 +200,6 @@ def delete_todo(db: Session, id: int):
 ```
 
 ## Database Migrations
-
-```bash title="Terminal"
-alembic init alembic
-alembic revision -m "create todos table"
-alembic upgrade head
-alembic downgrade -1
-```
 
 ```python title="alembic/env.py"
 import os
