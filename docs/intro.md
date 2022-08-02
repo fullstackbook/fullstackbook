@@ -22,27 +22,3 @@ The examples are implemented using common architectural patterns found in the re
 Full Stack Book is not a replacement for reading documentation or step by step tutorials. Instead, it should be used like a cheat sheet or a quick reference. It will probably work best for those who already know the basics of web development.
 
 Full Stack Book may also be used by engineers looking to compare various tech stacks to aid in picking a framework for their own project. A GitHub repo is provided for each implementation.
-
-Recommended Back End Concepts:
-
-- Controllers
-- Request / Response
-- Services
-- ORM
-- Database Migrations
-- Configuration
-- Exception Handlers
-- Unit Testing
-
-Recommended Front End Concepts:
-
-- Component Architecture
-- Props
-- Composition
-- Event Listeners
-- AJAX / Fetch
-- Configuration
-- Event Bubbling
-- Promises / Async Await
-
-Additional tech stacks and step by step tutorials may be added in the future if there is demand.
