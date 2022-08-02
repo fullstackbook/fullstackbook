@@ -60,7 +60,7 @@ const config = {
         title: 'Full Stack Book',
         logo: {
           alt: 'Full Stack Book',
-          src: 'img/logo.svg',
+          src: 'img/fullstackbook.png',
         },
         items: [
           {

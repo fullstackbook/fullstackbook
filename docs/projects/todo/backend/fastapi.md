@@ -2,7 +2,7 @@
 
 https://github.com/travisluong/fullstackbook-todo-fastapi
 
-## Installation
+## Command Line
 
 ```bash title="Terminal"
 mkdir fullstackbook-todo-fastapi

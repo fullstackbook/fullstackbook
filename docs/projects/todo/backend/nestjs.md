@@ -2,7 +2,7 @@
 
 https://github.com/travisluong/fullstackbook-todo-nestjs
 
-## Installation
+## Command Line
 
 ```bash title="Terminal"
 npm i -g @nestjs/cli
