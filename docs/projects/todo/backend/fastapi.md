@@ -81,13 +81,12 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, status
 import schemas
 import crud
-from database import SessionLocal, engine
+from database import SessionLocal
 
 router = APIRouter(
     prefix="/todos"
 )
 
-# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -95,13 +94,13 @@ def get_db():
     finally:
         db.close()
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 def create_todo(todo: schemas.ToDoRequest, db: Session = Depends(get_db)):
     todo = crud.create_todo(db, todo)
     return todo
 
-@router.get("/", response_model=List[schemas.ToDoResponse])
-def get_todos(completed: bool, db: Session = Depends(get_db)):
+@router.get("", response_model=List[schemas.ToDoResponse])
+def get_todos(completed: bool = None, db: Session = Depends(get_db)):
     todos = crud.read_todos(db, completed)
     return todos
 
