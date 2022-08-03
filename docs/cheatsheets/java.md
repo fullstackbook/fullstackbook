@@ -6,6 +6,8 @@
 int[] a = new int[10];
 int[] a = new int[]{1, 2, 3};
 int[] a = {1, 2, 3};
+int[][] a = new int[10][20];
+int[][] a = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
 Arrays.sort(a);
 
@@ -15,15 +17,6 @@ for (int i = 0; i < a.length; i++) {
 
 for (int x : a) {
   System.out.println(x);
-}
-
-int[][] a = new int[10][20];
-int[][] a = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-
-for (int i = 0; i < a.length; i++) {
-    for (int j = 0; j < a[i].length; j++) {
-        System.out.println(a[i][j]);
-    }
 }
 ```
 

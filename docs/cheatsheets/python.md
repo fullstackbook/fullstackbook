@@ -35,15 +35,16 @@ for i in range(len(s)):
   print(s[i])
 
 s = "foo,bar"
-s.split(",") # ["foo", "bar"]
+s.split(",")
 
 a = ["foo", "bar"]
-",".join(arr) # foo,bar
+",".join(arr)
 ```
 
 ## Dictionary
 
 ```python
+d = {}
 d = {"foo":1,"bar":2,"baz":3}
 d = dict(foo=1, bar=2, baz=3)
 
@@ -104,7 +105,7 @@ heapq.heapify(h)
 heapq.heappush(h, x * -1)
 -heapq.heappop(h)
 
-# heap with tuple
+# min heap with tuple
 h = []
 heapq.heappush(h, (1, x))
 heappop(h)
