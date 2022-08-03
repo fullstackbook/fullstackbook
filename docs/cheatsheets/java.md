@@ -3,35 +3,43 @@
 ## Array
 
 ```java
-int[] arr = new int[10];
-int[] arr = new int[10][20];
-int[] arr = new int[]{1, 2, 3};
-int[] arr = {1, 2, 3};
-int[] arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+int[] a = new int[10];
+int[] a = new int[]{1, 2, 3};
+int[] a = {1, 2, 3};
 
-for (int i = 0; i < arr.length; i++) {
-  System.out.println(arr[i]);
+Arrays.sort(a);
+
+for (int i = 0; i < a.length; i++) {
+  System.out.println(a[i]);
 }
 
-for (int i : arr) {
-  System.out.println(i);
+for (int x : a) {
+  System.out.println(x);
+}
+
+int[][] a = new int[10][20];
+int[][] a = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+for (int i = 0; i < a.length; i++) {
+    for (int j = 0; j < a[i].length; j++) {
+        System.out.println(a[i][j]);
+    }
 }
 ```
 
 ## String
 
 ```java
-String str = new String("foo");
-String str = "foo";
-str.length();
-char[] chArr = str.toCharArray();
+String s = new String("foo");
+String s = "foo";
+char[] a = s.toCharArray();
 
-for (char c : chArr) {
+for (char c : a) {
     System.out.println(c);
 }
 
-for (int i = 0; i < str.length(); i++) {
-    System.out.println(str.charAt(i));
+for (int i = 0; i < s.length(); i++) {
+    System.out.println(s.charAt(i));
 }
 ```
 
@@ -41,10 +49,9 @@ for (int i = 0; i < str.length(); i++) {
 import java.util.HashMap;
 
 HashMap<String, String> map = new HashMap<>();
-map.put("foo", "bar");
-map.put("baz", "qux");
-map.getOrDefault("foo", "baz");
-map.remove("foo");
+map.put(k, v);
+map.getOrDefault(k, v);
+map.remove(k);
 map.size();
 
 for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -60,33 +67,21 @@ for (String value : map.values()) {
 }
 ```
 
-Time Complexity​:
-- Access: O(1)
-- Search: O(n)
-- Insert: O(1)
-- Remove: O(1)
-
 ## HashSet
 
 ```java
 import java.util.HashSet;
 
 HashSet<String> set = new HashSet<>();
-set.add("foo");
-set.remove("foo");
-set.contains("foo");
+set.add(x);
+set.remove(x);
+set.contains(x);
 set.size();
 
-for (String s : set) {
-    System.out.println(s);
+for (String x : set) {
+    System.out.println(x);
 }
 ```
-
-Time Complexity:​
-- Access: O(1)
-- Search: O(1)
-- Insert: O(1)
-- Remove: O(1)
 
 ## ArrayList
 
@@ -95,31 +90,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
-ArrayList<Integer> list = new ArrayList<>();
-List<Integer> list = new ArrayList<>();
-list.add(1);
-list.set(0, 100);
-list.remove(0);
-list.clear();
-list.size();
+ArrayList<Integer> a = new ArrayList<>();
+List<Integer> a = new ArrayList<>();
+a.add(x);
+a.set(i, x);
+a.remove(i);
+a.clear();
+a.size();
 
-for (int i = 0; i < list.size(); i++) { 
-    System.out.println(list.get(i)); 
-} 
-
-for (Integer i : list) { 
-    System.out.println(i); 
+for (int i = 0; i < a.size(); i++) {
+    System.out.println(a.get(i));
 }
 
-Collections.sort(list);
-Collections.sort(list, Collections.reverseOrder());
-```
+for (Integer x : a) {
+    System.out.println(x);
+}
 
-Time Complexity:​
-- Access: O(1)
-- Search: O(n)
-- Insert: O(1) (at the back of the ArrayList)
-- Remove: O(n)
+Collections.sort(a);
+Collections.sort(a, Collections.reverseOrder());
+```
 
 ## Heap
 
@@ -130,7 +119,7 @@ import java.util.PriorityQueue;
 
 PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder()); // max heap
 PriorityQueue<Integer> pq = new PriorityQueue<>(); // min heap
-pq.add(1);
+pq.add(x);
 pq.peek();
 pq.poll();
 pq.size();
@@ -138,8 +127,7 @@ pq.size();
 PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue()); // min heap
 PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue()); // max heap
 Map<Integer, Integer> map = new HashMap<>();
-map.put(1, 1);
-map.put(2, 2);
+map.put(k, v);
 pq.addAll(map.entrySet());
 
 for(Map.Entry<Integer, Integer> entry: map.entrySet()) {
@@ -149,11 +137,6 @@ for(Map.Entry<Integer, Integer> entry: map.entrySet()) {
 Map.Entry<Integer, Integer> entry = pq.poll();
 ```
 
-Time Complexity:​
-- Access Max / Min: O(1)
-- Insert: O(log(n))
-- Remove Max / Min: O(log(n))
-
 ## Queue
 
 ```java
@@ -161,18 +144,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 Queue<Integer> q = new LinkedList<>();
-q.add(10);
+q.add(x);
 q.peek();
 q.poll();
 q.size();
 q.isEmpty();
 ```
-
-Time Complexity:​
-- Access: O(n)
-- Search: O(n)
-- Insert: O(1)
-- Remove: O(1)
 
 ## Stack
 
@@ -180,18 +157,12 @@ Time Complexity:​
 import java.util.Stack;
 
 Stack<Integer> st = new Stack<>();
-st.push(10);
+st.push(x);
 st.peek();
 st.pop();
 st.size();
 st.isEmpty();
 ```
-
-Time Complexity​:
-- Access: O(n)
-- Search: O(n)
-- Insert: O(1)
-- Remove: O(1)
 
 ## Linked List
 
@@ -199,9 +170,9 @@ Time Complexity​:
 import java.util.LinkedList;
 
 LinkedList<Integer> list = new LinkedList<>();
-list.add(1);
-list.set(0, 100);
-list.remove(0);
+list.add(x);
+list.set(i, x);
+list.remove(i);
 list.clear();
 list.size();
 
@@ -209,13 +180,7 @@ for (int i = 0; i < list.size(); i++) {
     System.out.println(list.get(i));
 }
 
-for (int i : list) {
-    System.out.println(i);
+for (int x : list) {
+    System.out.println(x);
 }
 ```
-
-Time Complexity​:
-- Access: O(n)
-- Search: O(n)
-- Insert: O(1)
-- Remove: O(1)

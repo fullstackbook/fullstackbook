@@ -1,4 +1,4 @@
-# JavaScript
+# JavaScript Cheat Sheet
 
 ## Array
 
