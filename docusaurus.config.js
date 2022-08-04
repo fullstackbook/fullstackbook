@@ -76,8 +76,8 @@ const config = {
             label: 'Projects',
           },
           {
-            type: 'doc',
-            docId: 'cheatsheets/cheatsheets',
+            type: 'docSidebar',
+            sidebarId: 'cheatsheetSidebar',
             position: 'left',
             label: 'Cheat Sheets',
           },
