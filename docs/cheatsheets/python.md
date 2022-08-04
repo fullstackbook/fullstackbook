@@ -3,16 +3,23 @@
 ## List
 
 ```python
+# create
 a = [1,2,3]
-a.append(x)
-a.copy()
-a.count(x)
-a.insert(i, x)
-a.pop()
-a.remove(x)
-a.reverse()
-a.sort()
 
+# insert
+a.append(1)
+a.insert(0, 1) # index, value
+
+# access
+a[0] # index
+
+# update
+a[0] = 1 # index, value
+
+# size
+len(a)
+
+# loop
 for x in a:
   print(x)
 
@@ -21,112 +28,201 @@ for i in range(len(a)):
 
 for i, x in enumerate(a):
   print(i, x)
+
+# sort
+a.sort()
+a.sort(reverse=True)
+a.sort(key=lambda x: -x)
+
+# remove
+a.pop()
+a.pop(0) # index
+a.remove(1) # value
+
+# copy
+a.copy()
+
+# count elements
+a.count(1) # value
+
+# reverse
+a.reverse()
+
+# join
+a = ["foo", "bar"]
+",".join(a)
 ```
 
 ## String
 
 ```python
+# create
 s = "foo"
 
+# loop
 for c in s:
   print(c)
 
 for i in range(len(s)):
   print(s[i])
 
+# split
 s = "foo,bar"
 s.split(",")
-
-a = ["foo", "bar"]
-",".join(arr)
 ```
 
 ## Dictionary
 
 ```python
+# create
 d = {}
-d = {"foo":1,"bar":2,"baz":3}
-d = dict(foo=1, bar=2, baz=3)
+d = {"foo": "bar"}
+d = dict(foo="bar")
 
-d.get(k, v)
-d.get(k)
+# insert
+d["foo"] = "bar"
+
+# access
+d.get("foo", "bar") # key, value
+d.get("foo")
+"foo" in d
+"foo" not in d
 d.items()
-d.keys() 
-d.popitem()
+d.keys()
 d.values()
 
-d[k] = v
-k in d
-k not in d
-del d[k]
-
-from collections import defaultdict
-d = defaultdict(list)
-d = defaultdict(int)
-
+# loop
 for k in d:
   print(d[k])
 
 for k, v in d.items():
   print(k, v)
+
+for k in d.keys():
+  print(d[k])
+
+for v in d.values():
+  print(v)
+
+# remove
+d.popitem()
+del d[k]
+
+# defaultdict
+from collections import defaultdict
+d = defaultdict(list)
+d = defaultdict(int)
 ```
 
 ## Set
 
 ```python
-s = {1, 2, 3}
-s = set([1, 2, 3])
+# create
+s = set()
+s = {"foo", "bar", "baz"}
+s = set(["foo", "bar", "baz"])
 
-s.add(x)
-s.remove(x)
+# insert
+s.add("foo")
 
-x in s
-x not in s
+# access
+"foo" in s
+"foo" not in s
 
+# loop
 for x in s:
   print(x)
+
+# remove
+s.remove("foo")
+s.pop()
 ```
 
 ## Heap
 
 ```python
+# import
 import heapq
 
 # min heap
-h = [5, 7, 9, 1, 3]
+# create
+h = [1, 2, 3]
 heapq.heapify(h)
-heapq.heappush(h, x)
+# insert
+heapq.heappush(h, 4)
+# access
+h[0]
+# remove
 heapq.heappop(h)
 
 # max heap
-h = [5, 7, 9, 1, 3]
+# create
+h = [1, 2, 3]
 h = [x * -1 for x in h]
 heapq.heapify(h)
-heapq.heappush(h, x * -1)
+# insert
+heapq.heappush(h, 4 * -1)
+# access
+h[0]
+# remove
 -heapq.heappop(h)
 
 # min heap with tuple
-h = []
-heapq.heappush(h, (1, x))
-heappop(h)
+# create
+h = [(1, "foo"), (2, "bar"), (3, "baz")]
+heapq.heapify(h)
+# insert
+heapq.heappush(h, (4, "qux"))
+# access
+h[0]
+# remove
+heapq.heappop(h)
 
-heapq.nlargest(k, h)
-heapq.nsmallest(k, h)
+# max heap with tuple
+# create
+h = [(1, "foo"), (2, "bar"), (3, "baz")]
+h = [(x * -1, item) for x, item in h]
+heapq.heapify(h)
+# insert
+heapq.heappush(h, (4 * -1, "qux"))
+# access
+h[0]
+# remove
+heapq.heappop(h)
+
+# nlargest
+heapq.nlargest(1, h) # k, h
+# nsmallest
+heapq.nsmallest(1, h) # k, h
 ```
 
 ## Deque
 
 ```python
+# import
 from collections import deque
 
+# create
+q = deque()
 q = deque([1, 2, 3])
-q.append(x)
-q.appendleft(x)
-q.count(x)
-q.index(x)
-q.insert(i, x)
+
+# insert
+q.append(1)
+q.appendleft(1)
+q.insert(0, 1) # index, value
+
+# access
+q[0] # index
+
+# size
+len(q)
+
+# remove
 q.pop()
 q.popleft()
-q.remove(x)
+q.remove(1) # value
+
+q.count(1) # value
+q.index(1) # value
 q.reverse()
 ```
