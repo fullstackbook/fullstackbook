@@ -69,6 +69,12 @@ const config = {
             position: 'left',
             label: 'Start Here',
           },
+          {
+            type: 'doc',
+            docId: 'cheatsheets/cheatsheets',
+            position: 'left',
+            label: 'Cheat Sheets'
+          },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/travisluong/fullstackbook',

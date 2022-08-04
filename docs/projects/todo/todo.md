@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Project: To Do
+# To Do
 
 ## Description
 
