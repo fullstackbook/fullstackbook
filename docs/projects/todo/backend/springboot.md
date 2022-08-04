@@ -14,7 +14,7 @@ Dependencies:
 - Lombok
 - Spring Web
 - Spring Data JPA
-- Liquibase Migration
+- Flyway Migration
 - PostgreSQL Driver
 
 ## Entry Point / CORS
@@ -309,32 +309,19 @@ public interface ToDoRepository extends JpaRepository<ToDo, Long> {
 
 ## Database Migrations
 
-```xml title="src/main/resources/db/changelog/changelog.xml"
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
-      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
-    <includeAll path="db/changelog/*.sql" />
-</databaseChangeLog>
+```bash title="Terminal"
+./mvnw -Dflyway.user=postgres -Dflyway.url=jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot flyway:migrate
+./mvnw -Dflyway.user=postgres -Dflyway.url=jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot flyway:clean
 ```
 
-```sql title="src/main/resources/db/changelog/changelog-1.0.sql"
---liquibase formatted sql
-
---changeset fullstackbook:1
+```sql title="src/main/resources/db/migration/V1__create_todos_table.sql"
 create table todos (
   id bigserial primary key,
   name text
 );
 ```
 
-```sql title="src/main/resources/db/changelog/changelog-2.0.sql"
---liquibase formatted sql
-
---changeset fullstackbook:2
+```sql title="src/main/resources/db/migration/V2__add_completed_to_todos.sql"
 alter table todos add column completed boolean not null default false;
 ```
 
