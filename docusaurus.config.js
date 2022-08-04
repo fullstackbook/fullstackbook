@@ -71,9 +71,15 @@ const config = {
           },
           {
             type: 'doc',
+            docId: 'projects/projects',
+            position: 'left',
+            label: 'Projects',
+          },
+          {
+            type: 'doc',
             docId: 'cheatsheets/cheatsheets',
             position: 'left',
-            label: 'Cheat Sheets'
+            label: 'Cheat Sheets',
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
