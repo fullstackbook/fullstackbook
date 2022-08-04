@@ -16,6 +16,10 @@ a[0] // index
 // update
 a[0] = 1 // index, value
 
+// access and remove
+a.pop()
+a.shift()
+
 // size
 a.length
 
@@ -31,8 +35,6 @@ a.sort((a, b) => a - b)
 a.sort()
 
 // remove
-a.pop()
-a.shift()
 a.splice(0, 1) // start, deleteCount
 
 // remove and insert
@@ -61,6 +63,9 @@ a.reverse()
 ```js
 // create
 var s = "foo"
+
+// size
+s.length
 
 // loop
 for (var i = 0; i < s.length; i++) {

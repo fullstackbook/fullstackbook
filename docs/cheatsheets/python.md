@@ -47,10 +47,6 @@ a.count(1) # value
 
 # reverse
 a.reverse()
-
-# join
-a = ["foo", "bar"]
-",".join(a)
 ```
 
 ## String
@@ -69,6 +65,10 @@ for i in range(len(s)):
 # split
 s = "foo,bar"
 s.split(",")
+
+# join
+a = ["foo", "bar"]
+",".join(a)
 ```
 
 ## Dictionary
@@ -91,6 +91,9 @@ d.items()
 d.keys()
 d.values()
 
+# access and remove
+d.popitem()
+
 # loop
 for k in d:
   print(d[k])
@@ -105,13 +108,35 @@ for v in d.values():
   print(v)
 
 # remove
-d.popitem()
-del d[k]
+del d["foo"]
+```
 
+```python
 # defaultdict
+
+# import
 from collections import defaultdict
+
 d = defaultdict(list)
+d["foo"].append(1)
+
 d = defaultdict(int)
+d["foo"] += 1
+```
+
+```python
+# Counter
+
+# import
+from collections import Counter
+
+# count characters
+s = "foo"
+d = Counter(s)
+
+# count words
+a = ["foo", "bar", "baz"]
+d = Counter(a)
 ```
 
 ## Set
@@ -129,13 +154,15 @@ s.add("foo")
 "foo" in s
 "foo" not in s
 
+# access and remove
+s.pop()
+
 # loop
 for x in s:
   print(x)
 
 # remove
 s.remove("foo")
-s.pop()
 ```
 
 ## Heap
@@ -143,55 +170,82 @@ s.pop()
 ```python
 # import
 import heapq
+```
 
+```python
 # min heap
+
 # create
 h = [1, 2, 3]
 heapq.heapify(h)
+
 # insert
 heapq.heappush(h, 4)
+
 # access
 h[0]
-# remove
-heapq.heappop(h)
 
+# access and remove
+heapq.heappop(h)
+```
+
+```python
 # max heap
+
 # create
 h = [1, 2, 3]
 h = [x * -1 for x in h]
 heapq.heapify(h)
+
 # insert
 heapq.heappush(h, 4 * -1)
+
 # access
 h[0]
-# remove
--heapq.heappop(h)
 
+# access and remove
+-heapq.heappop(h)
+```
+
+```python
 # min heap with tuple
+
 # create
 h = [(1, "foo"), (2, "bar"), (3, "baz")]
 heapq.heapify(h)
+
 # insert
 heapq.heappush(h, (4, "qux"))
+
 # access
 h[0]
-# remove
-heapq.heappop(h)
 
+# access and remove
+heapq.heappop(h)
+```
+
+```python
 # max heap with tuple
+
 # create
 h = [(1, "foo"), (2, "bar"), (3, "baz")]
 h = [(x * -1, item) for x, item in h]
 heapq.heapify(h)
+
 # insert
 heapq.heappush(h, (4 * -1, "qux"))
+
 # access
 h[0]
-# remove
-heapq.heappop(h)
 
+# access and remove
+heapq.heappop(h)
+```
+
+```python
 # nlargest
 heapq.nlargest(1, h) # k, h
+
 # nsmallest
 heapq.nsmallest(1, h) # k, h
 ```
@@ -214,15 +268,22 @@ q.insert(0, 1) # index, value
 # access
 q[0] # index
 
+# access and remove
+q.pop()
+q.popleft()
+
 # size
 len(q)
 
 # remove
-q.pop()
-q.popleft()
 q.remove(1) # value
 
+# count elements
 q.count(1) # value
+
+# find index
 q.index(1) # value
+
+# reverse
 q.reverse()
 ```

@@ -7,8 +7,12 @@
 int[] a = {1, 2, 3};
 int[] a2 = new int[10];
 int[] a3 = new int[]{1, 2, 3};
-int[][] a4 = new int[10][20];
-int[][] a5 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+// insert
+a[0] = 1;
+
+// access
+int x = a[0];
 
 // loop
 for (int i = 0; i < a.length; i++) {
@@ -21,6 +25,12 @@ for (int x : a) {
 
 // sort
 Arrays.sort(a);
+```
+
+```java
+// create 2d array
+int[][] a = new int[3][3];
+int[][] a2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 ```
 
 ## String
@@ -154,40 +164,67 @@ arr.clear();
 
 ```java
 // import
-import java.util.HashMap;
-import java.util.Map;
 import java.util.PriorityQueue;
 
-// create
+// create min heap
 PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+// create max heap
 PriorityQueue<Integer> pqMax = new PriorityQueue<>(Collections.reverseOrder());
+
 // insert
 pq.add(1);
+
 // access
 pq.peek();
+
+// access and remove
 pq.poll();
+
 // size
 pq.size();
+
 // loop
 for (Integer x : pq) {
     System.out.println(x);
 }
+
 // remove
 pq.remove(1); // object
+```
 
-// heap with mapentry
-// create
-PriorityQueue<Map.Entry<Integer, Integer>> pq2 = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());
-PriorityQueue<Map.Entry<Integer, Integer>> pq2Max = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+```java
+// heap with map entry
+
+// import
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+
+// create min heap
+PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());
+
+// create max heap
+PriorityQueue<Map.Entry<Integer, Integer>> pqMax = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+
 // insert
 Map<Integer, Integer> map = new HashMap<>();
+
 map.put(1, 1);
-pq2.addAll(map.entrySet());
+
+pq.addAll(map.entrySet());
+
 for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
-  pq2.add(entry);
+  pq.add(entry);
 }
+
 // access
-Map.Entry<Integer, Integer> entry = pq2.poll();
+Map.Entry<Integer, Integer> entry = pq.peek();
+entry.getKey();
+entry.getValue();
+
+// access and remove
+Map.Entry<Integer, Integer> entry2 = pq.poll();
 ```
 
 ## Queue
@@ -201,10 +238,12 @@ import java.util.Queue;
 Queue<Integer> q = new LinkedList<>();
 
 // insert
-q.add(x);
+q.add(1);
 
 // access
 q.peek();
+
+// access and remove
 q.poll();
 
 // size
@@ -229,11 +268,11 @@ st.push(1); // item
 // access
 st.peek();
 
+// access and remove
+st.pop();
+
 // size
 st.size();
-
-// remove
-st.pop();
 
 // is empty
 st.isEmpty();
@@ -270,5 +309,7 @@ for (int x : list) {
 
 // remove
 list.remove(0); // index or object
+
+// remove all
 list.clear();
 ```
