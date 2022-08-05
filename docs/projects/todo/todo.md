@@ -38,8 +38,7 @@ https://documenter.getpostman.com/view/65303/Uze1xQGS
 - Component Architecture
 - Props
 - Composition
-- Event Listeners
+- Event Handling
 - AJAX / Fetch
 - Configuration
-- Event Bubbling
 - Promises / Async Await
