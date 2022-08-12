@@ -2,6 +2,19 @@
 
 https://github.com/travisluong/fullstackbook-todo-nextjs
 
+## Command Line
+
+```bash title="Terminal"
+npx create-next-app@latest
+npm run dev
+```
+
+## Configuration
+
+```txt title=".env.example"
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
 ## Pages
 
 ```jsx title="pages/index.js"
@@ -269,10 +282,4 @@ export default function ToDo(props) {
     border: 0;
     cursor: pointer;
 }
-```
-
-## Configuration
-
-```txt title=".env.example"
-NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
