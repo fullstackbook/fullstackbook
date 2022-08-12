@@ -20,6 +20,28 @@ alembic upgrade head
 alembic downgrade -1
 ```
 
+## Configuration
+
+```txt title=".env.example"
+DATABASE_HOST=localhost
+DATABASE_NAME=fullstackbook-todo-fastapi
+DATABASE_USER=postgres
+DATABASE_PASSWORD=
+DATABASE_PORT=5432
+APP_NAME="Full Stack Book To Do"
+```
+
+```python title="config.py"
+from pydantic import BaseSettings
+
+
+class Settings(BaseSettings):
+    app_name: str = "Awesome API"
+
+    class Config:
+        env_file = ".env"
+```
+
 ## Entry Point / CORS / Exception Handler
 
 ```python title="main.py"
@@ -71,131 +93,6 @@ def read_root(settings: config.Settings = Depends(get_settings)):
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
-```
-
-## Routers
-
-```python title="routers/todos.py"
-from typing import List
-from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException, status
-import schemas
-import crud
-from database import SessionLocal
-
-router = APIRouter(
-    prefix="/todos"
-)
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-@router.post("", status_code=status.HTTP_201_CREATED)
-def create_todo(todo: schemas.ToDoRequest, db: Session = Depends(get_db)):
-    todo = crud.create_todo(db, todo)
-    return todo
-
-@router.get("", response_model=List[schemas.ToDoResponse])
-def get_todos(completed: bool = None, db: Session = Depends(get_db)):
-    todos = crud.read_todos(db, completed)
-    return todos
-
-@router.get("/{id}")
-def get_todo_by_id(id: int, db: Session = Depends(get_db)):
-    todo = crud.read_todo(db, id)
-    if todo is None:
-        raise HTTPException(status_code=404, detail="to do not found")
-    return todo
-
-@router.put("/{id}")
-def update_todo(id: int, todo: schemas.ToDoRequest, db: Session = Depends(get_db)):
-    todo = crud.update_todo(db, id, todo)
-    if todo is None:
-        raise HTTPException(status_code=404, detail="to do not found")
-    return todo
-
-@router.delete("/{id}", status_code=status.HTTP_200_OK)
-def delete_todo(id: int, db: Session = Depends(get_db)):
-    res = crud.delete_todo(db, id)
-    if res is None:
-        raise HTTPException(status_code=404, detail="to do not found")
-```
-
-## Schemas
-
-```python title="schemas.py"
-from pydantic import BaseModel
-
-class ToDoRequest(BaseModel):
-    name: str
-    completed: bool
-
-class ToDoResponse(BaseModel):
-    name: str
-    completed: bool
-    id: int
-
-    class Config:
-        orm_mode = True
-```
-
-## ORM
-
-```python title="models.py"
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
-
-from database import Base
-
-
-class ToDo(Base):
-    __tablename__ = "todos"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    completed = Column(Boolean, default=False)
-```
-
-```python title="crud.py"
-from sqlalchemy.orm import Session
-import models, schemas
-
-def create_todo(db: Session, todo: schemas.ToDoRequest):
-    db_todo = models.ToDo(name=todo.name, completed=todo.completed)
-    db.add(db_todo)
-    db.commit()
-    db.refresh(db_todo)
-    return db_todo
-
-def read_todos(db: Session, completed: bool):
-    if completed is None:
-        return db.query(models.ToDo).all()
-    else:
-        return db.query(models.ToDo).filter(models.ToDo.completed == completed).all()
-
-def read_todo(db: Session, id: int):
-    return db.query(models.ToDo).filter(models.ToDo.id == id).first()
-
-def update_todo(db: Session, id: int, todo: schemas.ToDoRequest):
-    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
-    if db_todo is None:
-        return None
-    db.query(models.ToDo).filter(models.ToDo.id == id).update({'name': todo.name, 'completed': todo.completed})
-    db.commit()
-    db.refresh(db_todo)
-    return db_todo
-
-def delete_todo(db: Session, id: int):
-    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
-    if db_todo is None:
-        return None
-    db.query(models.ToDo).filter(models.ToDo.id == id).delete()
-    db.commit()
-    return True
 ```
 
 ## Database Migrations
@@ -309,7 +206,8 @@ def upgrade():
     op.execute("""
         create table todos (
             id bigserial primary key,
-            name text
+            name text,
+            completed boolean not null default false
         );
     """)
 
@@ -318,53 +216,148 @@ def downgrade():
     op.execute("drop table todos;")
 ```
 
-```python title="alembic/versions/394a16f4c2da_add_completed_to_todos.py"
-"""add completed to todos
+## Schemas
 
-Revision ID: 394a16f4c2da
-Revises: 049c5ab5051e
-Create Date: 2022-07-29 21:58:58.112832
+```python title="schemas.py"
+from pydantic import BaseModel
 
-"""
-from alembic import op
-import sqlalchemy as sa
+class ToDoRequest(BaseModel):
+    name: str
+    completed: bool
 
-
-# revision identifiers, used by Alembic.
-revision = '394a16f4c2da'
-down_revision = '049c5ab5051e'
-branch_labels = None
-depends_on = None
-
-
-def upgrade():
-    op.execute("alter table todos add column completed boolean not null default false")
-
-
-def downgrade():
-    op.execute("alter table todos drop column completed")
-```
-
-## Configuration
-
-```txt title=".env.example"
-DATABASE_HOST=localhost
-DATABASE_NAME=fullstackbook-todo-fastapi
-DATABASE_USER=postgres
-DATABASE_PASSWORD=
-DATABASE_PORT=5432
-APP_NAME="Full Stack Book To Do"
-```
-
-```python title="config.py"
-from pydantic import BaseSettings
-
-
-class Settings(BaseSettings):
-    app_name: str = "Awesome API"
+class ToDoResponse(BaseModel):
+    name: str
+    completed: bool
+    id: int
 
     class Config:
-        env_file = ".env"
+        orm_mode = True
+```
+
+## ORM
+
+```python title="database.py"
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SQLALCHEMY_DATABASE_URL = f"postgresql://{os.environ['DATABASE_USER']}:@{os.environ['DATABASE_HOST']}/{os.environ['DATABASE_NAME']}"
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL
+)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+```
+
+```python title="models.py"
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
+from database import Base
+
+
+class ToDo(Base):
+    __tablename__ = "todos"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    completed = Column(Boolean, default=False)
+```
+
+```python title="crud.py"
+from sqlalchemy.orm import Session
+import models, schemas
+
+def create_todo(db: Session, todo: schemas.ToDoRequest):
+    db_todo = models.ToDo(name=todo.name, completed=todo.completed)
+    db.add(db_todo)
+    db.commit()
+    db.refresh(db_todo)
+    return db_todo
+
+def read_todos(db: Session, completed: bool):
+    if completed is None:
+        return db.query(models.ToDo).all()
+    else:
+        return db.query(models.ToDo).filter(models.ToDo.completed == completed).all()
+
+def read_todo(db: Session, id: int):
+    return db.query(models.ToDo).filter(models.ToDo.id == id).first()
+
+def update_todo(db: Session, id: int, todo: schemas.ToDoRequest):
+    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
+    if db_todo is None:
+        return None
+    db.query(models.ToDo).filter(models.ToDo.id == id).update({'name': todo.name, 'completed': todo.completed})
+    db.commit()
+    db.refresh(db_todo)
+    return db_todo
+
+def delete_todo(db: Session, id: int):
+    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
+    if db_todo is None:
+        return None
+    db.query(models.ToDo).filter(models.ToDo.id == id).delete()
+    db.commit()
+    return True
+```
+
+## Routers
+
+```python title="routers/todos.py"
+from typing import List
+from sqlalchemy.orm import Session
+from fastapi import APIRouter, Depends, HTTPException, status
+import schemas
+import crud
+from database import SessionLocal
+
+router = APIRouter(
+    prefix="/todos"
+)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@router.post("", status_code=status.HTTP_201_CREATED)
+def create_todo(todo: schemas.ToDoRequest, db: Session = Depends(get_db)):
+    todo = crud.create_todo(db, todo)
+    return todo
+
+@router.get("", response_model=List[schemas.ToDoResponse])
+def get_todos(completed: bool = None, db: Session = Depends(get_db)):
+    todos = crud.read_todos(db, completed)
+    return todos
+
+@router.get("/{id}")
+def get_todo_by_id(id: int, db: Session = Depends(get_db)):
+    todo = crud.read_todo(db, id)
+    if todo is None:
+        raise HTTPException(status_code=404, detail="to do not found")
+    return todo
+
+@router.put("/{id}")
+def update_todo(id: int, todo: schemas.ToDoRequest, db: Session = Depends(get_db)):
+    todo = crud.update_todo(db, id, todo)
+    if todo is None:
+        raise HTTPException(status_code=404, detail="to do not found")
+    return todo
+
+@router.delete("/{id}", status_code=status.HTTP_200_OK)
+def delete_todo(id: int, db: Session = Depends(get_db)):
+    res = crud.delete_todo(db, id)
+    if res is None:
+        raise HTTPException(status_code=404, detail="to do not found")
 ```
 
 ## Testing
