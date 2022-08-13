@@ -2,6 +2,20 @@
 
 https://github.com/travisluong/fullstackbook-todo-nuxtjs
 
+## Configuration
+
+```txt title=".env.example"
+API_URL=http://localhost:8000
+```
+
+```js title="nuxt.config.js"
+export default {
+  publicRuntimeConfig: {
+    apiURL: process.env.API_URL
+  }
+}
+```
+
 ## Pages
 
 ```html title="pages/index.vue"
@@ -175,16 +189,3 @@ export default {
 
 ```
 
-## Configuration
-
-```txt title=".env.example"
-API_URL=http://localhost:8000
-```
-
-```js title="nuxt.config.js"
-export default {
-  publicRuntimeConfig: {
-    apiURL: process.env.API_URL
-  }
-}
-```
