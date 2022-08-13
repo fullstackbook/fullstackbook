@@ -24,7 +24,6 @@ spring.application.name=${APP_NAME:Full Stack Book To Do}
 spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot}
 spring.datasource.username=${DB_USER:postgres}
 spring.datasource.password=${DB_PASSWORD:}
-spring.liquibase.change-log=classpath:db/changelog/changelog.xml
 server.port=8000
 ```
 
