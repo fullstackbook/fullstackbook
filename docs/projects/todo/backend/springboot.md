@@ -17,6 +17,17 @@ Dependencies:
 - Flyway Migration
 - PostgreSQL Driver
 
+## Configuration
+
+```txt title="src/main/resources/application.properties"
+spring.application.name=${APP_NAME:Full Stack Book To Do}
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot}
+spring.datasource.username=${DB_USER:postgres}
+spring.datasource.password=${DB_PASSWORD:}
+spring.liquibase.change-log=classpath:db/changelog/changelog.xml
+server.port=8000
+```
+
 ## Entry Point / CORS
 
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/FullstackbookTodoSpringbootApplication.java"
@@ -48,8 +59,6 @@ public class FullstackbookTodoSpringbootApplication {
 }
 ```
 
-## Controller
-
 ```java title="src/main/java/com/example/fullstackbooktodospringboot/controller/AppController.java"
 package com.example.fullstackbooktodospringboot.controller;
 
@@ -74,61 +83,22 @@ public class AppController {
 }
 ```
 
+## Database Migrations
 
-```java title="src/main/java/com/example/fullstackbooktodospringboot/controller/ToDoController.java"
-package com.example.fullstackbooktodospringboot.controller;
+```bash title="Terminal"
+./mvnw -Dflyway.user=postgres -Dflyway.url=jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot flyway:migrate
+./mvnw -Dflyway.user=postgres -Dflyway.url=jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot flyway:clean
+```
 
-import com.example.fullstackbooktodospringboot.dto.CreateToDoDto;
-import com.example.fullstackbooktodospringboot.dto.ToDoDto;
-import com.example.fullstackbooktodospringboot.dto.UpdateToDoDto;
-import com.example.fullstackbooktodospringboot.service.ToDoService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+```sql title="src/main/resources/db/migration/V1__create_todos_table.sql"
+create table todos (
+  id bigserial primary key,
+  name text
+);
+```
 
-import java.util.List;
-import java.util.Optional;
-
-@RestController
-@RequestMapping("/todos")
-public class ToDoController {
-    private ToDoService toDoService;
-
-    public ToDoController (ToDoService toDoService) {
-        this.toDoService = toDoService;
-    }
-
-    @PostMapping("")
-    public ResponseEntity<ToDoDto> createToDo(@RequestBody CreateToDoDto newToDo) {
-        ToDoDto toDoDTO = toDoService.createTodo(newToDo);
-        return new ResponseEntity<>(toDoDTO, HttpStatus.CREATED);
-    }
-
-    @GetMapping("")
-    public List<ToDoDto> getToDos(@RequestParam Optional<Boolean> completed) {
-        if (completed.isPresent()) {
-            return toDoService.getToDos(completed.get());
-        }
-        return toDoService.getToDos();
-    }
-
-    @GetMapping("/{id}")
-    public ToDoDto getToDoById(@PathVariable Long id) {
-        return toDoService.getToDoById(id);
-    }
-
-    @PutMapping("/{id}")
-    public ToDoDto updateToDo(@PathVariable Long id, @RequestBody UpdateToDoDto updateToDo) {
-        return toDoService.updateToDo(id, updateToDo);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteToDo(@PathVariable Long id) {
-        toDoService.deleteToDo(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-}
-
+```sql title="src/main/resources/db/migration/V2__add_completed_to_todos.sql"
+alter table todos add column completed boolean not null default false;
 ```
 
 ## DTO
@@ -190,6 +160,44 @@ import lombok.Data;
 public class UpdateToDoDto {
     private String name;
     private Boolean completed;
+}
+```
+
+## ORM
+
+```java title="src/main/java/com/example/fullstackbooktodospringboot/model/ToDo.java"
+package com.example.fullstackbooktodospringboot.model;
+
+import lombok.Data;
+
+import javax.persistence.*;
+
+@Entity
+@Data
+@Table(name = "todos")
+public class ToDo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String name;
+
+    @Column
+    private Boolean completed;
+}
+```
+
+```java title="src/main/java/com/example/fullstackbooktodospringboot/repository/ToDoRepository.java"
+package com.example.fullstackbooktodospringboot.repository;
+
+import com.example.fullstackbooktodospringboot.model.ToDo;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface ToDoRepository extends JpaRepository<ToDo, Long> {
+    List<ToDo> findByCompleted(Boolean completed);
 }
 ```
 
@@ -269,71 +277,62 @@ public class ToDoService {
 }
 ```
 
-## ORM
+## Controller
 
-```java title="src/main/java/com/example/fullstackbooktodospringboot/model/ToDo.java"
-package com.example.fullstackbooktodospringboot.model;
+```java title="src/main/java/com/example/fullstackbooktodospringboot/controller/ToDoController.java"
+package com.example.fullstackbooktodospringboot.controller;
 
-import lombok.Data;
-
-import javax.persistence.*;
-
-@Entity
-@Data
-@Table(name = "todos")
-public class ToDo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
-    private String name;
-
-    @Column
-    private Boolean completed;
-}
-```
-
-```java title="src/main/java/com/example/fullstackbooktodospringboot/repository/ToDoRepository.java"
-package com.example.fullstackbooktodospringboot.repository;
-
-import com.example.fullstackbooktodospringboot.model.ToDo;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.fullstackbooktodospringboot.dto.CreateToDoDto;
+import com.example.fullstackbooktodospringboot.dto.ToDoDto;
+import com.example.fullstackbooktodospringboot.dto.UpdateToDoDto;
+import com.example.fullstackbooktodospringboot.service.ToDoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface ToDoRepository extends JpaRepository<ToDo, Long> {
-    List<ToDo> findByCompleted(Boolean completed);
+@RestController
+@RequestMapping("/todos")
+public class ToDoController {
+    private ToDoService toDoService;
+
+    public ToDoController (ToDoService toDoService) {
+        this.toDoService = toDoService;
+    }
+
+    @PostMapping("")
+    public ResponseEntity<ToDoDto> createToDo(@RequestBody CreateToDoDto newToDo) {
+        ToDoDto toDoDTO = toDoService.createTodo(newToDo);
+        return new ResponseEntity<>(toDoDTO, HttpStatus.CREATED);
+    }
+
+    @GetMapping("")
+    public List<ToDoDto> getToDos(@RequestParam Optional<Boolean> completed) {
+        if (completed.isPresent()) {
+            return toDoService.getToDos(completed.get());
+        }
+        return toDoService.getToDos();
+    }
+
+    @GetMapping("/{id}")
+    public ToDoDto getToDoById(@PathVariable Long id) {
+        return toDoService.getToDoById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ToDoDto updateToDo(@PathVariable Long id, @RequestBody UpdateToDoDto updateToDo) {
+        return toDoService.updateToDo(id, updateToDo);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteToDo(@PathVariable Long id) {
+        toDoService.deleteToDo(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
-```
 
-## Database Migrations
-
-```bash title="Terminal"
-./mvnw -Dflyway.user=postgres -Dflyway.url=jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot flyway:migrate
-./mvnw -Dflyway.user=postgres -Dflyway.url=jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot flyway:clean
-```
-
-```sql title="src/main/resources/db/migration/V1__create_todos_table.sql"
-create table todos (
-  id bigserial primary key,
-  name text
-);
-```
-
-```sql title="src/main/resources/db/migration/V2__add_completed_to_todos.sql"
-alter table todos add column completed boolean not null default false;
-```
-
-## Configuration
-
-```txt title="src/main/resources/application.properties"
-spring.application.name=${APP_NAME:Full Stack Book To Do}
-spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/fullstackbook-todo-springboot}
-spring.datasource.username=${DB_USER:postgres}
-spring.datasource.password=${DB_PASSWORD:}
-spring.liquibase.change-log=classpath:db/changelog/changelog.xml
-server.port=8000
 ```
 
 ## Exception Handler
