@@ -1,0 +1,16 @@
+# JWT
+
+## Description
+
+- User can sign up with username, email, and password
+- User can log in with username and password
+- Logged in user can access user content
+- App supports role based authorization
+
+## API Contract
+
+https://documenter.getpostman.com/view/65303/VUxKTUco
+
+## UI Mockup
+
+<iframe width="1000" height="500" src="https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=fullstackbook-jwt-springboot.drawio#R3Zldc6IwFIZ%2FDZc7QxJAvay23d3Z7s06nb1OJUK2IbEhVO2v30QSFYL9mKpl9AZ4cxLgOck5JxigSbH6LvEi%2Fy1SwgIYpqsAXQcQggiF%2BmCUda0MR7AWMklTa7QTpvSFWNH2yyqakrJhqIRgii6a4kxwTmaqoWEpxbJpNhesedcFzognTGeY%2BepfmqrcqiAMdw0%2FCM1ye%2BthbBsK7IytUOY4Fcs9Cd0EaCKFUPVZsZoQZuA5LnW%2F2wOt2weThKv3dPg3rchL9vSUcMYfB79u%2F6yf429JPcozZpV9Yfuwau0ISFHxlJhBwgCNlzlVZLrAM9O61D7XWq4Kpq%2BAPrXDEanI6uBzgu3b62lDREGUXGsT2wFFFpidMY7fcocfOfr5HvnIidi6PNsOvaOiTyyYD0AaepDuRGY6cQ%2BWfm3VJFIqKR7JRDAhtcIF15bjOWWsJWFGM64vZxoT0frYQKR6Il7ZhoKmqblNpwuaTjqCF6Kk6YXI90LS4QR0Kh%2BMPB9UJZEcF%2BRzE9ZhZ2RuHFdqQ8qzu83VNTADzAVXzlcBRKPN70hTvQV56EPupByfirKLunuYF7gsl0KmF4QZxF%2FOGXicp9VDQdUrlMHblFsMw83vSPEAtaJyR1gG8KwMYf9yF%2Bxb6gLIn2hmJcLwfnG5yQtE%2FUpeILrE7BX1LXnFHmVSYMouB3EPEpe%2FYThl4mL4gbAxnj1mm%2BGcSUrmuGLqSMECtIL26Msz28CDfAFVWHtb15EczzyX%2FX3dlxcQSdK7CsLfed3r3KWViZ4r5rUutowYJHEz%2FHZEhtE56wjoV3MBTDaB0CzcwHwGc2s3eapEHSFdON2TkswcTSWoecHwpykIr8rAfB8TD1i6QfVD1uPW9j319AljVjJ4s5Dc1prnmQF%2BjVOvxl565kD6djc%2F3W51MGwVTh1x9Kw7AOjXTfU3RFF9snR6P%2BNd1dTh9mMsllET%2BsBnHncwhx9nri933803bXv%2FPqCb%2Fw%3D%3D"></iframe>
