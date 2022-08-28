@@ -4,7 +4,7 @@ https://github.com/travisluong/fullstackbook-jwt-springboot
 
 ## config
 
-```java title="CorsConfiguration.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/config/CorsConfiguration.java"
 package com.example.fullstackbookjwtspringboot.config;
 
 import org.springframework.context.annotation.Bean;
@@ -27,7 +27,7 @@ public class CorsConfiguration {
 
 ```
 
-```java title="SecurityConfiguration.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/config/SecurityConfiguration.java"
 package com.example.fullstackbookjwtspringboot.config;
 
 import com.example.fullstackbookjwtspringboot.filter.AuthTokenFilter;
@@ -95,7 +95,7 @@ public class SecurityConfiguration {
 
 ## controller
 
-```java title="AuthController.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/controller/AuthController.java"
 package com.example.fullstackbookjwtspringboot.controller;
 
 import com.example.fullstackbookjwtspringboot.dto.JwtResponse;
@@ -188,7 +188,7 @@ public class AuthController {
 
 ```
 
-```java title="TestController.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/controller/TestController.java"
 package com.example.fullstackbookjwtspringboot.controller;
 
 import com.example.fullstackbookjwtspringboot.service.UserDetailsImpl;
@@ -247,7 +247,7 @@ public class TestController {
 
 ## dto
 
-```java title="JwtResponse.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/dto/JwtResponse.java"
 package com.example.fullstackbookjwtspringboot.dto;
 
 import lombok.Data;
@@ -267,7 +267,7 @@ public class JwtResponse {
 
 ```
 
-```java title="SignInRequest.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/dto/SignInRequest.java"
 package com.example.fullstackbookjwtspringboot.dto;
 
 import lombok.Data;
@@ -280,7 +280,7 @@ public class SignInRequest {
 
 ```
 
-```java title="SignUpRequest.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/dto/SignUpRequest.java"
 package com.example.fullstackbookjwtspringboot.dto;
 
 import lombok.Data;
@@ -296,7 +296,7 @@ public class SignUpRequest {
 
 ## filter
 
-```java title="AuthTokenFilter.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/filter/AuthTokenFilter.java"
 package com.example.fullstackbookjwtspringboot.filter;
 
 import com.example.fullstackbookjwtspringboot.service.UserDetailsServiceImpl;
@@ -356,7 +356,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 ```
 
-```java title="TestFilter.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/filter/TestFilter.java"
 package com.example.fullstackbookjwtspringboot.filter;
 
 import org.springframework.stereotype.Component;
@@ -382,7 +382,7 @@ public class TestFilter extends OncePerRequestFilter {
 
 ## model
 
-```java title="ERole.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/model/ERole.java"
 package com.example.fullstackbookjwtspringboot.model;
 
 public enum ERole {
@@ -393,7 +393,7 @@ public enum ERole {
 
 ```
 
-```java title="Role.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/model/Role.java"
 package com.example.fullstackbookjwtspringboot.model;
 
 import javax.persistence.*;
@@ -416,7 +416,7 @@ public class Role {
 
 ```
 
-```java title="User.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/model/User.java"
 package com.example.fullstackbookjwtspringboot.model;
 
 import lombok.AllArgsConstructor;
@@ -460,7 +460,7 @@ public class User {
 
 ## repository
 
-```java title="RoleRepository.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/repository/RoleRepository.java"
 package com.example.fullstackbookjwtspringboot.repository;
 
 import com.example.fullstackbookjwtspringboot.model.ERole;
@@ -475,7 +475,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
 ```
 
-```java title="UserRepository.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/repository/UserRepository.java"
 package com.example.fullstackbookjwtspringboot.repository;
 
 import com.example.fullstackbookjwtspringboot.model.User;
@@ -493,7 +493,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 ## service
 
-```java title="AuthEntryPointJwt.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/service/AuthEntryPointJwt.java"
 package com.example.fullstackbookjwtspringboot.service;
 
 import lombok.extern.log4j.Log4j2;
@@ -518,7 +518,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
 ```
 
-```java title="UserDetailsImpl.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/service/UserDetailsImpl.java"
 package com.example.fullstackbookjwtspringboot.service;
 
 import com.example.fullstackbookjwtspringboot.model.User;
@@ -601,7 +601,7 @@ public class UserDetailsImpl implements UserDetails {
 
 ```
 
-```java title="UserDetailsServiceImpl.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/service/UserDetailsServiceImpl.java"
 package com.example.fullstackbookjwtspringboot.service;
 
 import com.example.fullstackbookjwtspringboot.model.User;
@@ -630,7 +630,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 ## util
 
-```java title="JwtUtil.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/util/JwtUtil.java"
 package com.example.fullstackbookjwtspringboot.util;
 
 import com.example.fullstackbookjwtspringboot.service.UserDetailsImpl;
@@ -685,7 +685,7 @@ public class JwtUtil {
 
 ## app
 
-```java title="FullstackbookJwtSpringbootApplication.java"
+```java title="src/main/java/com/example/fullstackbookjwtspringboot/FullstackbookJwtSpringbootApplication.java"
 package com.example.fullstackbookjwtspringboot;
 
 import org.springframework.boot.SpringApplication;
@@ -704,7 +704,7 @@ public class FullstackbookJwtSpringbootApplication {
 
 ## migration
 
-```sql title="V1__create_roles_table.sql"
+```sql title="src/main/resources/db/migration/V1__create_roles_table.sql"
 create table roles (
     id serial primary key,
     name text not null unique
@@ -712,7 +712,7 @@ create table roles (
 
 ```
 
-```sql title="V2__create_users_table.sql"
+```sql title="src/main/resources/db/migration/V2__create_users_table.sql"
 create table users (
     id serial primary key,
     username text not null,
@@ -722,14 +722,14 @@ create table users (
 
 ```
 
-```sql title="V3__create_users_to_roles_table.sql"
+```sql title="src/main/resources/db/migration/V3__create_users_to_roles_table.sql"
 create table users_to_roles (
     user_id int references users (id),
     role_id int references roles (id)
 );
 ```
 
-```sql title="V4__insert_roles.sql"
+```sql title="src/main/resources/db/migration/V4__insert_roles.sql"
 insert into roles (name) values ('ROLE_USER');
 insert into roles (name) values ('ROLE_MODERATOR');
 insert into roles (name) values ('ROLE_ADMIN');
@@ -737,7 +737,7 @@ insert into roles (name) values ('ROLE_ADMIN');
 
 ## properties
 
-```txt title="application.properties"
+```txt title="src/main/resources/application.properties"
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/fullstackbook-jwt-springboot
 spring.datasource.username=postgres
