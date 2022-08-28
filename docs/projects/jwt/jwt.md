@@ -1,11 +1,12 @@
-# JWT
+# JWT Project
 
 ## Description
 
-- User can sign up with username, email, and password
-- User can log in with username and password
-- Logged in user can access user content
-- App supports role based authorization
+- Secure an application with JWT Authentication and Authorization.
+- User can sign up with username, email, and password.
+- User can log in with username and password.
+- Logged in user can access user content.
+- App supports role based authorization.
 
 ## API Contract
 

@@ -1,4 +1,4 @@
-# Next.js
+# JWT Next.js
 
 https://github.com/travisluong/fullstackbook-jwt-nextjs
 
