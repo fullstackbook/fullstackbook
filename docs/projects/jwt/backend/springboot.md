@@ -747,3 +747,9 @@ spring.datasource.password=
 fullstackbook.app.jwtSecret=mysecret
 fullstackbook.app.jwtExpirationMs=86400000
 ```
+
+## references
+
+- https://www.bezkoder.com/spring-boot-security-postgresql-jwt-authentication/
+- https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
+- https://docs.spring.io/spring-security/reference/index.html
