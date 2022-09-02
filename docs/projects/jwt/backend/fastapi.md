@@ -358,16 +358,15 @@ from fastapi.security import OAuth2PasswordRequestForm
 from database import get_session
 from dependencies.auth import authenticate_user, create_access_token, get_current_active_user, get_password_hash
 from model import User, Role, UserToRole
-from schemas import Token, UserIn, UserRead
+from schemas import SignInRequest, Token, UserIn, UserRead
 
-router = APIRouter()
+router = APIRouter(prefix="/api/auth")
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 43200
 
 @router.post("/token", response_model=Token)
 def login_for_access_token(
-    form_data: OAuth2PasswordRequestForm = Depends(),
-    session: Session = Depends(get_session),
+    form_data: OAuth2PasswordRequestForm = Depends()
 ):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -380,7 +379,24 @@ def login_for_access_token(
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"token": access_token, "token_type": "bearer"}
+
+@router.post("/signin", response_model=Token)
+def login_for_access_token(
+    signin_request: SignInRequest
+):
+    user = authenticate_user(signin_request.username, signin_request.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"token": access_token, "token_type": "bearer"}
 
 @router.get("/users/me", response_model=UserRead)
 def read_users_me(current_user: User = Depends(get_current_active_user)):
@@ -391,7 +407,7 @@ def read_users_me(current_user: User = Depends(get_current_active_user)):
 def read_own_items(current_user: User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
 
-@router.post("/users", response_model=UserRead)
+@router.post("/signup", response_model=UserRead)
 def sign_up(user: UserIn, session: Session = Depends(get_session)):
     hashed_password = get_password_hash(user.password)
     role = session.query(Role).filter(Role.name == "ROLE_USER").first()
@@ -404,14 +420,18 @@ def sign_up(user: UserIn, session: Session = Depends(get_session)):
     session.refresh(new_user)
     return UserRead(username=new_user.username, email=new_user.email)
 
+
 ```
 
 ```python title="routers/content.py"
 from fastapi import APIRouter, Depends
+from dependencies.auth import get_current_active_user
 
 from dependencies.roles import admin_role, moderator_role, user_role
+from model import User
+from schemas import UserRead
 
-router = APIRouter()
+router = APIRouter(prefix="/api/test")
 
 @router.get("/admin")
 def admin(current_user = Depends(admin_role)):
@@ -421,7 +441,7 @@ def admin(current_user = Depends(admin_role)):
 def user(current_user = Depends(user_role)):
     return "user content"
 
-@router.get("/moderator")
+@router.get("/mod")
 def moderator(current_user = Depends(moderator_role)):
     return "moderator content"
 
@@ -429,6 +449,10 @@ def moderator(current_user = Depends(moderator_role)):
 def all():
     return "public content"
 
+@router.get("/profile", response_model=UserRead)
+def read_users_me(current_user: User = Depends(get_current_active_user)):
+    user = UserRead(username=current_user.username, email=current_user.email)
+    return user
 ```
 
 ## Configuration
@@ -564,8 +588,12 @@ class Role(Base):
 from typing import Optional
 from pydantic import BaseModel
 
+class SignInRequest(BaseModel):
+    username: str
+    password: str
+
 class Token(BaseModel):
-    access_token: str
+    token: str
     token_type: str
 
 class TokenData(BaseModel):
