@@ -2,6 +2,15 @@
 
 https://github.com/travisluong/fullstackbook-jwt-springboot
 
+## Dependencies
+
+- Lombok
+- Spring Web
+- Spring Security
+- Spring Data JPA
+- Flyway Migration
+- PostgreSQL Driver
+
 ## Config
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/config/CorsConfiguration.java"
