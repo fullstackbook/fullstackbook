@@ -2,7 +2,7 @@
 
 https://github.com/travisluong/fullstackbook-jwt-nextjs
 
-## components
+## Components
 
 ```jsx title="components/layout-authenticated.js"
 import { useRouter } from 'next/router'
@@ -61,7 +61,7 @@ export default function Layout(props) {
 }
 ```
 
-## pages
+## Pages
 
 ```jsx title="pages/index.js"
 import Head from 'next/head'
@@ -233,7 +233,7 @@ export default function User() {
 }
 ```
 
-## styles
+## Styles
 
 ```css title="styles/globals.css"
 * {
@@ -288,7 +288,7 @@ export default function User() {
 }
 ```
 
-## config
+## Config
 
 ```txt title=".env.example"
 NEXT_PUBLIC_API_URL=http://localhost:8080

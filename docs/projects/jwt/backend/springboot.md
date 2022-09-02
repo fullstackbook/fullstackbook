@@ -2,7 +2,7 @@
 
 https://github.com/travisluong/fullstackbook-jwt-springboot
 
-## config
+## Config
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/config/CorsConfiguration.java"
 package com.example.fullstackbookjwtspringboot.config;
@@ -93,7 +93,7 @@ public class SecurityConfiguration {
 }
 ```
 
-## controller
+## Controller
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/controller/AuthController.java"
 package com.example.fullstackbookjwtspringboot.controller;
@@ -245,7 +245,7 @@ public class TestController {
 
 ```
 
-## dto
+## DTO
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/dto/JwtResponse.java"
 package com.example.fullstackbookjwtspringboot.dto;
@@ -294,7 +294,7 @@ public class SignUpRequest {
 
 ```
 
-## filter
+## Filter
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/filter/AuthTokenFilter.java"
 package com.example.fullstackbookjwtspringboot.filter;
@@ -380,7 +380,7 @@ public class TestFilter extends OncePerRequestFilter {
 
 ```
 
-## model
+## Model
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/model/ERole.java"
 package com.example.fullstackbookjwtspringboot.model;
@@ -458,7 +458,7 @@ public class User {
 
 ```
 
-## repository
+## Repository
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/repository/RoleRepository.java"
 package com.example.fullstackbookjwtspringboot.repository;
@@ -491,7 +491,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 ```
 
-## service
+## Service
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/service/AuthEntryPointJwt.java"
 package com.example.fullstackbookjwtspringboot.service;
@@ -628,7 +628,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 ```
 
-## util
+## Util
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/util/JwtUtil.java"
 package com.example.fullstackbookjwtspringboot.util;
@@ -683,7 +683,7 @@ public class JwtUtil {
 
 ```
 
-## app
+## App
 
 ```java title="src/main/java/com/example/fullstackbookjwtspringboot/FullstackbookJwtSpringbootApplication.java"
 package com.example.fullstackbookjwtspringboot;
@@ -702,7 +702,7 @@ public class FullstackbookJwtSpringbootApplication {
 
 ```
 
-## migration
+## Migration
 
 ```sql title="src/main/resources/db/migration/V1__create_roles_table.sql"
 create table roles (
@@ -735,7 +735,7 @@ insert into roles (name) values ('ROLE_MODERATOR');
 insert into roles (name) values ('ROLE_ADMIN');
 ```
 
-## properties
+## Properties
 
 ```txt title="src/main/resources/application.properties"
 
@@ -748,7 +748,7 @@ fullstackbook.app.jwtSecret=mysecret
 fullstackbook.app.jwtExpirationMs=86400000
 ```
 
-## references
+## References
 
 - https://www.bezkoder.com/spring-boot-security-postgresql-jwt-authentication/
 - https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
