@@ -363,11 +363,10 @@ from model import User, Role, UserToRole
 from schemas import SignInRequest, Token, UserIn, UserRead
 
 router = APIRouter(prefix="/api/auth")
-oauth_router = APIRouter()
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 43200
 
-@oauth_router.post("/token", response_model=Token)
+@router.post("/token", response_model=Token)
 def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends()
 ):
@@ -422,6 +421,7 @@ def sign_up(user: UserIn, session: Session = Depends(get_session)):
     session.commit()
     session.refresh(new_user)
     return UserRead(username=new_user.username, email=new_user.email)
+
 
 ```
 
@@ -520,7 +520,6 @@ import config
 app = FastAPI()
 app.include_router(auth.router)
 app.include_router(content.router)
-app.include_router(auth.oauth_router)
 
 origins = [
     "http://localhost:3000",
