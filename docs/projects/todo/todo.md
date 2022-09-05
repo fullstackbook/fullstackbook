@@ -4,6 +4,17 @@ sidebar_position: 1
 
 # To Do Project
 
+- [Full Stack FastAPI + Next.js Tutorial - YouTube](https://www.youtube.com/watch?v=HJ314MNcCck)
+- [Full Stack Spring Boot + Next.js Tutorial - YouTube](https://www.youtube.com/watch?v=Z_4Tqmv8Oa4)
+- [Full Stack Spring Boot + NuxtJS Tutorial - YouTube](https://www.youtube.com/watch?v=Y48nKiOSMbY)
+- [Full Stack FastAPI + NuxtJS Tutorial - YouTube](https://www.youtube.com/watch?v=J9EbxoJGwbI)
+- [Full Stack NestJS + Next.js Tutorial - YouTube](https://www.youtube.com/watch?v=9jUh0Y2A3X4)
+- [Full Stack NestJS + NuxtJS Tutorial - YouTube](https://www.youtube.com/watch?v=pcdNoqaMFok)
+- [Full Stack Spring Boot + VanillaJS Tutorial - YouTube](https://www.youtube.com/watch?v=cLu0bbW8rPE)
+- [Full Stack FastAPI + VanillaJS Tutorial - YouTube](https://www.youtube.com/watch?v=p9YTVAq472E)
+- [Full Stack NestJS + VanillaJS Tutorial - YouTube](https://www.youtube.com/watch?v=NYaYoBAY4ME)
+- [Full Stack Spring Boot + React Tutorial - YouTube](https://www.youtube.com/watch?v=p7Z1BVmskdU)
+
 ## Description
 
 - Build a simple To Do List application.

@@ -1,5 +1,8 @@
 # JWT Project
 
+- [Full Stack Spring Boot + NextJS JWT Authentication Tutorial - YouTube](https://www.youtube.com/watch?v=kj6wRnXQDKI)
+- [Full Stack FastAPI + NextJS JWT Authentication Tutorial - YouTube](https://www.youtube.com/watch?v=InzrcSk_9YU)
+
 ## Description
 
 - Secure an application with JWT Authentication and Authorization.
