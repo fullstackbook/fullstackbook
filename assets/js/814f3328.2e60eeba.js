@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfullstackbook=self.webpackChunkfullstackbook||[]).push([[2535],{5641:t=>{t.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"How To Deploy Next.js With PM2","permalink":"/blog/deploy-nextjs-with-pm2"},{"title":"First Blog Post","permalink":"/blog/first-blog-post"}]}')}}]);
