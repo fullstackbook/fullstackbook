@@ -1,8 +1,6 @@
 ---
-slug: deploy-nextjs-with-pm2
+slug: how-to-deploy-nextjs-with-pm2
 title: How To Deploy Next.js With PM2
-authors: [travis]
-tags: [fullstackbook]
 ---
 
 - On local machine:
@@ -26,26 +24,28 @@ tags: [fullstackbook]
 
   - Replace the values.
 
-        module.exports = {
-          apps: [{
-            script: 'npm start'
-          }],
+      ```js
+      module.exports = {
+        apps: [{
+          script: 'npm start'
+        }],
 
-          deploy: {
-            production: {
-              key: "PATH_TO_KEY",
-              user: 'ubuntu',
-              host: 'SSH_HOSTMACHINE',
-              ref: 'origin/main',
-              repo: 'GIT_REPOSITORY',
-              path: '/home/ubuntu',
-              'pre-deploy-local': '',
-              'post-deploy': 'source ~/.nvm/nvm.sh && npm install && npm run build && pm2 reload ecosystem.config.js --env production',
-              'pre-setup': '',
-              'ssh_options': 'ForwardAgent=yes'
-            }
+        deploy: {
+          production: {
+            key: "PATH_TO_KEY",
+            user: 'ubuntu',
+            host: 'SSH_HOSTMACHINE',
+            ref: 'origin/main',
+            repo: 'GIT_REPOSITORY',
+            path: '/home/ubuntu',
+            'pre-deploy-local': '',
+            'post-deploy': 'source ~/.nvm/nvm.sh && npm install && npm run build && pm2 reload ecosystem.config.js --env production',
+            'pre-setup': '',
+            'ssh_options': 'ForwardAgent=yes'
           }
-        };
+        }
+      };
+      ```
 
   - Check in the file.
 

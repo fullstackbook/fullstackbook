@@ -75,9 +75,15 @@ const config = {
           },
           {
             type: 'doc',
-            docId: 'projects/projects',
+            docId: 'code/code',
             position: 'left',
-            label: 'Projects',
+            label: 'Code'
+          },
+          {
+            type: 'doc',
+            docId: 'guides/guides',
+            position: 'left',
+            label: 'Guides'
           },
           {
             type: 'docSidebar',

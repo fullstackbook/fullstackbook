@@ -1,4 +1,4 @@
-# To Do Next.js API Routes
+# Next.js API Routes
 
 https://github.com/travisluong/fullstackbook-todo-nextjs
 

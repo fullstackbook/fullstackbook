@@ -1,4 +1,4 @@
-# JWT FastAPI
+# FastAPI JWT API
 
 https://github.com/travisluong/fullstackbook-jwt-fastapi
 

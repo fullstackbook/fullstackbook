@@ -1,4 +1,4 @@
-# To Do Spring Boot
+# Spring Boot To Do API
 
 https://github.com/travisluong/fullstackbook-todo-springboot
 

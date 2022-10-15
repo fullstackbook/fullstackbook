@@ -1,4 +1,4 @@
-# To Do NuxtJS
+# NuxtJS To Do UI
 
 https://github.com/travisluong/fullstackbook-todo-nuxtjs
 

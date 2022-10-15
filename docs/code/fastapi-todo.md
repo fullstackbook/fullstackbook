@@ -1,4 +1,4 @@
-# To Do FastAPI
+# FastAPI To Do API
 
 https://github.com/travisluong/fullstackbook-todo-fastapi
 

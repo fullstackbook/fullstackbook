@@ -1,4 +1,4 @@
-# To Do VanillaJS
+# VanillaJS To Do UI
 
 https://github.com/travisluong/fullstackbook-todo-vanillajs
 

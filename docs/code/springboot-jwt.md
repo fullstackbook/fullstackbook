@@ -1,4 +1,4 @@
-# JWT Spring Boot
+# Spring Boot JWT API
 
 https://github.com/travisluong/fullstackbook-jwt-springboot
 

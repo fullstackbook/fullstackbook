@@ -14,7 +14,7 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Full Stack Book was written from the ground up to be used as a quick
+        Full Stack Book was designed to be used as a quick
         reference guide for popular programming languages and frameworks.
       </>
     ),
