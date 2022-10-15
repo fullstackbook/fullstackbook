@@ -4,48 +4,48 @@ title: How To Deploy Next.js With PM2
 ---
 
 - On local machine:
-
   - Install pm2.
 
         npm i pm2 -g
-
+  
   - Create a new Next.js app.
 
         npx create-next-app
         cd my-app
 
   - Push to a private GitHub repo.
-
 - On cloud platform:
   - Launch a compute instance running Ubuntu.
+  - Download the pem key.
+- On local machine:
   - Generate the pm2 ecosystem file.
 
         pm2 ecosystem
 
   - Replace the values.
 
-      ```js
-      module.exports = {
-        apps: [{
-          script: 'npm start'
-        }],
+    ```js
+    module.exports = {
+      apps: [{
+        script: 'npm start'
+      }],
 
-        deploy: {
-          production: {
-            key: "PATH_TO_KEY",
-            user: 'ubuntu',
-            host: 'SSH_HOSTMACHINE',
-            ref: 'origin/main',
-            repo: 'GIT_REPOSITORY',
-            path: '/home/ubuntu',
-            'pre-deploy-local': '',
-            'post-deploy': 'source ~/.nvm/nvm.sh && npm install && npm run build && pm2 reload ecosystem.config.js --env production',
-            'pre-setup': '',
-            'ssh_options': 'ForwardAgent=yes'
-          }
+      deploy: {
+        production: {
+          key: 'PATH_TO_KEY',
+          user: 'ubuntu',
+          host: 'SSH_HOSTMACHINE',
+          ref: 'origin/main',
+          repo: 'GIT_REPOSITORY',
+          path: '/home/ubuntu',
+          'pre-deploy-local': '',
+          'post-deploy': 'source ~/.nvm/nvm.sh && npm install && npm run build && pm2 reload ecosystem.config.js --env production',
+          'pre-setup': '',
+          'ssh_options': 'ForwardAgent=yes'
         }
-      };
-      ```
+      }
+    };
+    ```
 
   - Check in the file.
 
