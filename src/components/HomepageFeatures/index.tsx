@@ -10,32 +10,29 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Quick Reference',
+    title: 'Code',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Full Stack Book was designed to be used as a quick
-        reference guide for popular programming languages and frameworks.
+        Boilerplates and code snippets of common full stack development patterns
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Guides',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Full Stack Book lets you focus on ramping up quickly without
-        getting lost in documentation and tutorial rabbit holes.
+        Step by step guides on common full stack development tasks
       </>
     ),
   },
   {
-    title: 'Learn by Example',
+    title: 'Cheat Sheets',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Example projects implemented in multiple languages
-        and frameworks.
+        Cheat sheets for programming languages and other technologies
       </>
     ),
   },
