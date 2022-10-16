@@ -32,7 +32,7 @@ title: How To Deploy Next.js With PM2
 
       deploy: {
         production: {
-          key: 'PATH_TO_KEY',
+          key: 'key.pem',
           user: 'ubuntu',
           host: 'SSH_HOSTMACHINE',
           ref: 'origin/main',
@@ -55,9 +55,14 @@ title: How To Deploy Next.js With PM2
   - Push to GitHub.
 
 - On local machine:
+  - Change pem permission.
+
+        chmod 400 key.pem
+
+  - Copy the pem file into project root.
   - SSH into server.
 
-        ssh -i [PATH_TO_PEM] ubuntu@[IP_ADDRESS]
+        ssh -i key.pem ubuntu@[IP_ADDRESS]
 
 - On the server:
 
@@ -80,7 +85,7 @@ title: How To Deploy Next.js With PM2
 
         server {  
             listen 80;  
-            server_name myapp.example.com;
+            server_name IP_ADDRESS;
             
             location / {  
                 proxy_pass http://127.0.0.1:3000/;
@@ -91,37 +96,47 @@ title: How To Deploy Next.js With PM2
 
         sudo service nginx restart
 
-- Deploy Option 1: SSH Agent Forwarding
+- Choose one of two deployment options:
 
-  - On local machine:
-    - Edit ssh config.
+  - Deploy Option 1: SSH Agent Forwarding
 
-          vim ~/.ssh/config
+    - On local machine:
+      - Edit ssh config.
 
-    - Insert the following.
+            vim ~/.ssh/config
 
-          Host [IP_ADDRESS]
-              ForwardAgent yes
+      - Insert the following.
 
-  - On the server:
-    - Verify connection to GitHub.
+            Host [IP_ADDRESS]
+                ForwardAgent yes
+      
+      - Run ssh-add.
 
-          ssh -T git@github.com
+            ssh-add
 
-- Deploy Option 2: Deploy Key
+      - SSH into server.
 
-  - On the server:
-    - Run the ssh-keygen procedure.
+            ssh -i key.pem ubuntu@[IP_ADDRESS]
 
-          ssh-keygen
-    
-    - Copy the public key.
+    - On the server:
+      - Verify connection to GitHub.
 
-          cat ~/.ssh/id_rsa.pub
+            ssh -T git@github.com
 
-  - On GitHub:
-    - Go to the repo Settings > Deploy keys > Add deploy key
-    - Paste the public key and click Add key.
+  - Deploy Option 2: Deploy Key
+
+    - On the server:
+      - Run the ssh-keygen procedure.
+
+            ssh-keygen
+      
+      - Copy the public key.
+
+            cat ~/.ssh/id_rsa.pub
+
+    - On GitHub:
+      - Go to the repo Settings > Deploy keys > Add deploy key
+      - Paste the public key and click Add key.
 
 - Deployment
 
@@ -133,3 +148,37 @@ title: How To Deploy Next.js With PM2
     - Run deployment.
 
           pm2 deploy production
+
+- Set up domain.
+  - Go to your DNS provider.
+  - Point domain to IP address.
+  - Wait for DNS propagation.
+  - Verify DNS with dig.
+
+        dig myapp.fullstackbook.com
+
+  - Change the Nginx configuration to use domain instead of IP.
+
+        server {  
+            listen 80;  
+            server_name myapp.fullstackbook.com;
+            
+            location / {  
+                proxy_pass http://127.0.0.1:3000/;
+            }  
+        }
+  
+  - Restart Nginx.
+
+        sudo service nginx restart
+
+- Set up SSL.
+  - Go to [certbot.eff.org](https://certbot.eff.org).
+  - Select Nginx as the Software and Ubuntu as the System.
+  - Follow the instructions. Below is a condensed version of the commands:
+
+        sudo snap install core; sudo snap refresh core
+        sudo apt-get remove certbot
+        sudo snap install --classic certbot
+        sudo ln -s /snap/bin/certbot /usr/bin/certbot
+        sudo certbot --nginx
