@@ -1,6 +1,6 @@
 # Docker Cheat Sheet
 
-## Backend Dockerfile example
+## Backend Dockerfile
 
 Create Dockerfile in nfp-backend.
 
@@ -21,7 +21,7 @@ DATABASE_URL=postgresql://nfp_boilerplate_user:password@host.docker.internal/nfp
 
 This allows the app inside the container to connect to the PostgreSQL instance running on your host machine.
 
-## Build the image
+### Build the image
 
 ```
 docker build -t nfp-backend .
@@ -29,7 +29,7 @@ docker build -t nfp-backend .
 
 The -t flag tags the images.
 
-## Run the container
+### Run the container
 
 ```
 docker run -p 8000:8000 -it --rm --name nfp-backend-running nfp-backend
@@ -41,7 +41,7 @@ docker run -p 8000:8000 -it --rm --name nfp-backend-running nfp-backend
 - nfp-backend-running is the name of the running container.
 - nfp-backend is the name of the image.
 
-## Frontend Dockerfile example
+## Frontend Dockerfile
 
 Create Dockerfile in nfp-frontend.
 
@@ -54,19 +54,19 @@ COPY . .
 CMD [ "npm", "run", "dev" ]
 ```
 
-CD into nfp-frontend and run the build:
+### Run the build
 
 ```
 docker build -t nfp-frontend .
 ```
 
-## Run the container
+### Run the container
 
 ```
 docker run -p 3000:3000 -it --rm --name nfp-frontend-running nfp-frontend
 ```
 
-## Bind Mounts
+Bind Mounts
 
 ```
 docker run -p 8000:8000 -it --rm --name nfp-backend-running -v "$PWD":/usr/src/app nfp-backend
@@ -173,7 +173,7 @@ Then, exit the container:
 exit
 ```
 
-## Open a terminal into the database container
+Open a terminal into the database container.
 
 ```
 docker exec -it nfp-boilerplate_db_1 bash
@@ -275,7 +275,7 @@ docker volume rm $(docker volume ls --filter dangling=true -q)
 docker rmi -f $(docker images -qa)
 ```
 
-# References
+## References
 
 - https://medium.com/@travisluong/how-to-develop-a-full-stack-next-js-fastapi-postgresql-app-using-docker-7d6412fb44c7
 - https://github.com/travisluong/nfp-boilerplate

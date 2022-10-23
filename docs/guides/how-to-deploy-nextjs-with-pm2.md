@@ -3,7 +3,7 @@ slug: how-to-deploy-nextjs-with-pm2
 title: How To Deploy Next.js With PM2
 ---
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IwWQG6lEdQQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"></iframe>
+## Initial setup
 
 - On local machine:
   - Install pm2.
@@ -19,6 +19,7 @@ title: How To Deploy Next.js With PM2
 - On cloud platform:
   - Launch a compute instance running Ubuntu.
   - Download the pem key.
+
 - On local machine:
   - Generate the pm2 ecosystem file.
 
@@ -55,6 +56,9 @@ title: How To Deploy Next.js With PM2
         git commit -m "add ecosystem"
   
   - Push to GitHub.
+
+## Provision server
+
 
 - On local machine:
   - Change pem permission.
@@ -98,89 +102,99 @@ title: How To Deploy Next.js With PM2
 
         sudo service nginx restart
 
-- Choose one of two deployment options:
+## Deploy app
 
-  - Deploy Option 1: SSH Agent Forwarding
+Choose one of two deployment options:
 
-    - On local machine:
-      - Edit ssh config.
+### Option 1: SSH Agent Forwarding
 
-            vim ~/.ssh/config
+- On local machine:
+  - Edit ssh config.
 
-      - Insert the following.
+        vim ~/.ssh/config
 
-            Host [IP_ADDRESS]
-                ForwardAgent yes
-      
-      - Run ssh-add.
+  - Insert the following.
 
-            ssh-add
+        Host [IP_ADDRESS]
+              ForwardAgent yes
 
-      - SSH into server.
+  - Run ssh-add.
 
-            ssh -i key.pem ubuntu@[IP_ADDRESS]
+        ssh-add
 
-    - On the server:
-      - Verify connection to GitHub.
+  - SSH into server.
 
-            ssh -T git@github.com
+        ssh -i key.pem ubuntu@[IP_ADDRESS]
 
-  - Deploy Option 2: Deploy Key
+- On the server:
+  - Verify connection to GitHub.
 
-    - On the server:
-      - Run the ssh-keygen procedure.
+        ssh -T git@github.com
 
-            ssh-keygen
-      
-      - Copy the public key.
+### Option 2: Deploy Key
 
-            cat ~/.ssh/id_rsa.pub
+- On the server:
+  - Run the ssh-keygen procedure.
 
-    - On GitHub:
-      - Go to the repo Settings > Deploy keys > Add deploy key
-      - Paste the public key and click Add key.
+        ssh-keygen
 
-- Deployment
+  - Copy the public key.
 
-  - On local machine:
-    - Run pm2 setup.
+        cat ~/.ssh/id_rsa.pub
 
-          pm2 deploy production setup
-    
-    - Run deployment.
+- On GitHub:
+  - Go to the repo Settings > Deploy keys > Add deploy key
+  - Paste the public key and click Add key.
 
-          pm2 deploy production
+## Deployment
 
-- Set up domain.
-  - Go to your DNS provider.
-  - Point domain to IP address.
-  - Wait for DNS propagation.
-  - Verify DNS with dig.
+- On local machine:
+  - Run pm2 setup.
 
-        dig myapp.fullstackbook.com
+        pm2 deploy production setup
 
-  - Change the Nginx configuration to use domain instead of IP.
+  - Run deployment.
 
-        server {  
-            listen 80;  
-            server_name myapp.fullstackbook.com;
-            
-            location / {  
-                proxy_pass http://127.0.0.1:3000/;
-            }  
-        }
-  
-  - Restart Nginx.
+        pm2 deploy production
 
-        sudo service nginx restart
+## Set up domain
 
-- Set up SSL.
-  - Go to [certbot.eff.org](https://certbot.eff.org).
-  - Select Nginx as the Software and Ubuntu as the System.
-  - Follow the instructions. Below is a condensed version of the commands:
+- Go to your DNS provider.
+- Point domain to IP address.
+- Wait for DNS propagation.
+- Verify DNS with dig.
 
-        sudo snap install core; sudo snap refresh core
-        sudo apt-get remove certbot
-        sudo snap install --classic certbot
-        sudo ln -s /snap/bin/certbot /usr/bin/certbot
-        sudo certbot --nginx
+      dig myapp.fullstackbook.com
+
+- Change the Nginx configuration to use domain instead of IP.
+
+      server {  
+        listen 80;  
+        server_name myapp.fullstackbook.com;
+        
+        location / {  
+              proxy_pass http://127.0.0.1:3000/;
+        }  
+      }
+
+- Restart Nginx.
+
+      sudo service nginx restart
+
+## Set up SSL
+
+- Go to [certbot.eff.org](https://certbot.eff.org).
+- Select Nginx as the Software and Ubuntu as the System.
+- Follow the instructions. Below is a condensed version of the commands:
+
+      sudo snap install core; sudo snap refresh core
+      sudo apt-get remove certbot
+      sudo snap install --classic certbot
+      sudo ln -s /snap/bin/certbot /usr/bin/certbot
+      sudo certbot --nginx
+
+## References
+
+- https://youtu.be/IwWQG6lEdQQ
+- https://docs.github.com/en/developers/overview/managing-deploy-keys
+- https://pm2.keymetrics.io/docs/usage/deployment/
