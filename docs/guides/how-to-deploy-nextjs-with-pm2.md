@@ -102,7 +102,7 @@ title: How To Deploy Next.js With PM2
 
         sudo service nginx restart
 
-## Deploy app
+## Deployment Options
 
 Choose one of two deployment options:
 
