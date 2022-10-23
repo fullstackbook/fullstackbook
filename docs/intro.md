@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Introduction
 
-Full Stack Book is a quick reference guide to help developers quickly ramp up to web frameworks and programming languages.
+Full Stack Book is a quick reference guide for web frameworks, programming languages, and common web development tasks.
 
 Code snippets and guides are based on the tutorials from the YouTube channel:
 
