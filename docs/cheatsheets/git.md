@@ -1,6 +1,6 @@
 # Git Cheat Sheet
 
-## Rebase process
+## Rebase
 Useful when you need to put master commits before your branch commits. Last two lines are needed only if there were merge conflicts.
 
     git co your-branch
@@ -47,7 +47,7 @@ This is useful when a feature branch was force pushed on remote.
 
 ## Checkout tracked remote branch
 
-    git checkout -t origin/ansible
+    git checkout -t origin/my-branch
 
 ## Delete all branches forced
 
@@ -56,7 +56,6 @@ This is useful when a feature branch was force pushed on remote.
 ## Recovering lost work after rebase
 
     git reflog
-
     git reset --hard <hash>
 
 ## Change git commit email
