@@ -1,4 +1,4 @@
-# How To Deploy Express With Amazon EKS
+# How To Deploy Spring Boot With Amazon EKS
 
 ## Prerequisites
 
@@ -10,40 +10,42 @@
 
 ## Initial Setup
 
-- Install Express.
+- Set up Spring Boot.
+  - Use Spring Initializr to generate a new project.
+  - Select Spring Web as dependency.
 
-    ```    
-    npm init
-    npm install express --save
-    ```
+- Create a Hello Controller `HelloController.java`.
+    ```java
+    package com.example.demo.controller;
 
-- Create express app. `app.js`
-    ```js
-    const express = require('express')
-    const app = express()
-    const port = 3000
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.RestController;
 
-    app.get('/', (req, res) => {
-      res.send('Hello World!')
-    })
+    @RestController
+    public class HelloController {
+        @GetMapping("/")
+        public String hello() {
+            return "Hello World!";
+        }
+    }
 
-    app.listen(port, () => {
-      console.log(`Example app listening on port ${port}`)
-    })
     ```
 
 - Create Dockerfile.
     ```Dockerfile
-    FROM node:16
-    WORKDIR /usr/src/app
-    COPY package.json ./
-    RUN npm install
-    COPY . .
-    CMD [ "node", "app.js" ]
+    FROM openjdk:17
+    WORKDIR /usr/src/myapp
+    COPY target/demo-0.0.1-SNAPSHOT.jar /usr/src/myapp
+    CMD ["java", "-jar", "/usr/src/myapp/demo-0.0.1-SNAPSHOT.jar"]
     ```
+
+- Create an executable jar.
+
+      ./mvnw clean package
+
 - Build image.
 
-      docker build -t hello .
+      docker build -t myapp .
 
 - Run container.
 
@@ -92,7 +94,7 @@
                 cpu: "500m"
             ports:
               - name: tcp
-                containerPort: 3000
+                containerPort: 8080
   ---
   apiVersion: v1
   kind: Service
@@ -103,7 +105,7 @@
       app: myapp
     ports:
       - port: 80
-        targetPort: 3000
+        targetPort: 8080
     type: LoadBalancer
   ```
 
