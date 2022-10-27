@@ -49,7 +49,7 @@
 
 - Run container.
 
-      docker run -it --rm --name my-running-app myapp
+      docker run -p 8080:8080 -it --rm --name my-running-app myapp
 
 ## Elastic Container Registry (ECR) Setup
 
