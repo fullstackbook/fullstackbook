@@ -3,6 +3,8 @@ slug: how-to-deploy-nextjs-with-pm2
 title: How To Deploy Next.js With PM2
 ---
 
+- https://youtu.be/IwWQG6lEdQQ
+
 ## Initial setup
 
 - On local machine:

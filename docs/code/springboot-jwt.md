@@ -1,6 +1,7 @@
 # Spring Boot JWT API
 
-https://github.com/travisluong/fullstackbook-jwt-springboot
+- https://github.com/travisluong/fullstackbook-jwt-springboot
+- [Full Stack Spring Boot + NextJS JWT Authentication Tutorial](https://youtu.be/kj6wRnXQDKI)
 
 ## Dependencies
 

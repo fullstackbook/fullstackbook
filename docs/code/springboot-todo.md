@@ -1,6 +1,10 @@
 # Spring Boot To Do API
 
-https://github.com/travisluong/fullstackbook-todo-springboot
+- https://github.com/travisluong/fullstackbook-todo-springboot
+- [Full Stack Spring Boot + React Tutorial](https://youtu.be/p7Z1BVmskdU)
+- [Full Stack Spring Boot + VanillaJS Tutorial](https://youtu.be/cLu0bbW8rPE)
+- [Full Stack Spring Boot + NuxtJS Tutorial](https://youtu.be/Y48nKiOSMbY)
+- [Full Stack Spring Boot + Next.js Tutorial](https://youtu.be/Z_4Tqmv8Oa4)
 
 ## Installation
 

@@ -1,6 +1,9 @@
 # Next.js To Do UI
 
-https://github.com/travisluong/fullstackbook-todo-nextjs
+- https://github.com/travisluong/fullstackbook-todo-nextjs
+- [Full Stack NestJS + Next.js Tutorial](https://youtu.be/9jUh0Y2A3X4)
+- [Full Stack Spring Boot + Next.js Tutorial](https://youtu.be/Z_4Tqmv8Oa4)
+- [Full Stack FastAPI + Next.js Tutorial](https://youtu.be/HJ314MNcCck)
 
 ## Command Line
 

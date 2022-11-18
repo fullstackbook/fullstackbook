@@ -1,7 +1,7 @@
 # FastAPI Redis
 
 - https://github.com/travisluong/fullstackbook-fastapi-redis
-- https://youtu.be/reNPNDustQU
+- [FastAPI Redis Tutorial](https://youtu.be/reNPNDustQU)
 
 ## Command Line
 

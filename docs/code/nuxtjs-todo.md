@@ -1,6 +1,9 @@
 # NuxtJS To Do UI
 
-https://github.com/travisluong/fullstackbook-todo-nuxtjs
+- https://github.com/travisluong/fullstackbook-todo-nuxtjs
+- [Full Stack NestJS + NuxtJS Tutorial](https://youtu.be/pcdNoqaMFok)
+- [Full Stack FastAPI + NuxtJS Tutorial](https://youtu.be/J9EbxoJGwbI)
+- [Full Stack Spring Boot + NuxtJS Tutorial](https://youtu.be/Y48nKiOSMbY)
 
 ## Command Line
 

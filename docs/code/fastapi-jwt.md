@@ -1,6 +1,7 @@
 # FastAPI JWT API
 
-https://github.com/travisluong/fullstackbook-jwt-fastapi
+- https://github.com/travisluong/fullstackbook-jwt-fastapi
+- [Full Stack FastAPI + NextJS JWT Authentication Tutorial](https://youtu.be/InzrcSk_9YU)
 
 ## Command Line
 

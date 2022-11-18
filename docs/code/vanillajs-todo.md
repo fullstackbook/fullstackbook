@@ -1,6 +1,9 @@
 # VanillaJS To Do UI
 
-https://github.com/travisluong/fullstackbook-todo-vanillajs
+- https://github.com/travisluong/fullstackbook-todo-vanillajs
+- [Full Stack NestJS + VanillaJS Tutorial](https://youtu.be/NYaYoBAY4ME)
+- [Full Stack FastAPI + VanillaJS Tutorial](https://youtu.be/p9YTVAq472E)
+- [Full Stack Spring Boot + VanillaJS Tutorial](https://youtu.be/cLu0bbW8rPE)
 
 ## HTML
 

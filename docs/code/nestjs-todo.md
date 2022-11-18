@@ -1,6 +1,9 @@
 # NestJS To Do API
 
-https://github.com/travisluong/fullstackbook-todo-nestjs
+- https://github.com/travisluong/fullstackbook-todo-nestjs
+- [Full Stack NestJS + VanillaJS Tutorial](https://youtu.be/NYaYoBAY4ME)
+- [Full Stack NestJS + NuxtJS Tutorial](https://youtu.be/pcdNoqaMFok)
+- [Full Stack NestJS + Next.js Tutorial](https://youtu.be/9jUh0Y2A3X4)
 
 ## Command Line
 
