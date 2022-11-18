@@ -9,6 +9,6 @@ Full Stack Book is a quick reference guide for web frameworks, programming langu
 
 Code snippets and guides are based on the tutorials from the YouTube channel:
 
-https://www.youtube.com/channel/UCQ44drtCDmahqxG5qs6x05A
+https://www.youtube.com/@fullstackbook
 
 Use this resource as a handbook to help you through your programming journey.
