@@ -76,7 +76,7 @@ title: How To Deploy FastAPI With PM2 And Connect To Redis
 
 - On the server:
 
-  - Install Node, PM2, and Nginx.
+  - Install Node, PM2.
 
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
         source .bashrc
