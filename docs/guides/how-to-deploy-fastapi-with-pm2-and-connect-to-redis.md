@@ -4,6 +4,7 @@ title: How To Deploy FastAPI With PM2 And Connect To Redis
 ---
 
 - https://github.com/travisluong/fullstackbook-fastapi-redis/tree/v2
+- [How To Deploy FastAPI With PM2 And Connect To AWS Redis](https://youtu.be/vs8jF9kFszM)
 
 ## Initial setup
 
