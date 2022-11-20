@@ -1,6 +1,6 @@
 # Express To Do API
 
-https://github.com/travisluong/fullstackbook-todo-express
+- GitHub: https://github.com/travisluong/fullstackbook-todo-express
 
 ## Command Line
 

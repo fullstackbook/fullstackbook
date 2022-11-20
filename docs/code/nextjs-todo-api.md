@@ -1,7 +1,7 @@
 # Next.js To Do API Routes
 
-- https://github.com/travisluong/fullstackbook-todo-nextjs
-- [Full Stack NextJS + API Routes + AWS EC2 + AWS RDS PostgreSQL Tutorial](https://youtu.be/b73UwoeoWFw)
+- GitHub: https://github.com/travisluong/fullstackbook-todo-nextjs
+- YouTube: [Full Stack NextJS + API Routes + AWS EC2 + AWS RDS PostgreSQL Tutorial](https://youtu.be/b73UwoeoWFw)
 
 ## Database
 

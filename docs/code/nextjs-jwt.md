@@ -1,8 +1,8 @@
 # Next.js JWT UI
 
-- https://github.com/travisluong/fullstackbook-jwt-nextjs
-- [Full Stack FastAPI + NextJS JWT Authentication Tutorial](https://youtu.be/InzrcSk_9YU)
-- [Full Stack Spring Boot + NextJS JWT Authentication Tutorial](https://youtu.be/kj6wRnXQDKI)
+- GitHub: https://github.com/travisluong/fullstackbook-jwt-nextjs
+- YouTube: [Full Stack FastAPI + NextJS JWT Authentication Tutorial](https://youtu.be/InzrcSk_9YU)
+- YouTube: [Full Stack Spring Boot + NextJS JWT Authentication Tutorial](https://youtu.be/kj6wRnXQDKI)
 
 ## Components
 

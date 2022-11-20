@@ -1,6 +1,6 @@
 # How To Deploy Spring Boot With Amazon EKS
 
-- [How To Deploy Spring Boot With Amazon EKS](https://youtu.be/CU8fXHK8Smk)
+- YouTube: [How To Deploy Spring Boot With Amazon EKS](https://youtu.be/CU8fXHK8Smk)
 
 ## Prerequisites
 

@@ -1,10 +1,10 @@
 # FastAPI To Do API
 
-- https://github.com/travisluong/fullstackbook-todo-fastapi
-- [Full Stack FastAPI + NextJS JWT Authentication Tutorial](https://youtu.be/InzrcSk_9YU)
-- [Full Stack FastAPI + VanillaJS Tutorial](https://youtu.be/p9YTVAq472E)
-- [Full Stack FastAPI + NuxtJS Tutorial](https://youtu.be/J9EbxoJGwbI)
-- [Full Stack FastAPI + Next.js Tutorial](https://youtu.be/HJ314MNcCck)
+- GitHub: https://github.com/travisluong/fullstackbook-todo-fastapi
+- YouTube: [Full Stack FastAPI + NextJS JWT Authentication Tutorial](https://youtu.be/InzrcSk_9YU)
+- YouTube: [Full Stack FastAPI + VanillaJS Tutorial](https://youtu.be/p9YTVAq472E)
+- YouTube: [Full Stack FastAPI + NuxtJS Tutorial](https://youtu.be/J9EbxoJGwbI)
+- YouTube: [Full Stack FastAPI + Next.js Tutorial](https://youtu.be/HJ314MNcCck)
 
 ## Command Line
 

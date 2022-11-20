@@ -1,7 +1,7 @@
 # React To Do UI
 
-- https://github.com/travisluong/fullstackbook-todo-react
-- [Full Stack Spring Boot + React Tutorial](https://youtu.be/p7Z1BVmskdU)
+- GitHub: https://github.com/travisluong/fullstackbook-todo-react
+- YouTube: [Full Stack Spring Boot + React Tutorial](https://youtu.be/p7Z1BVmskdU)
 
 ## Command Line
 
