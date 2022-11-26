@@ -44,7 +44,7 @@ docker run -p 3000:3000 -it --rm --name nfp-frontend-running nfp-frontend
 
 - The -p flag maps the host port to the container port. HOST:CONTAINER
 - The -i and -t flags are commonly used in combination for terminal access. It is shortened to -it.
-- The --rm flag ensures the container is automatically removed when it exists.
+- The --rm flag ensures the container is automatically removed after it exits.
 - nfp-backend-running is the name of the running container.
 - nfp-backend is the name of the image.
 
