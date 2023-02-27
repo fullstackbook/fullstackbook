@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Front End Development
+# Front End
 
 The Front End Development section of this book is dedicated to the building blocks of web development that are visible to the user. This includes HTML, CSS, JavaScript, and popular libraries such as React and Next.js. In this section, we will explore the fundamentals of front end development and how to create beautiful and functional websites.
 
