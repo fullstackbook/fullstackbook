@@ -76,6 +76,12 @@ const config = {
           },
           {
             type: 'doc',
+            docId: 'business/business',
+            position: 'left',
+            label: 'Business',
+          },          
+          {
+            type: 'doc',
             docId: 'code/code',
             position: 'left',
             label: 'Code'
