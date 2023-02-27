@@ -88,16 +88,22 @@ const config = {
           },          
           {
             type: 'doc',
-            docId: 'code/code',
+            docId: 'frontend/frontend',
             position: 'left',
-            label: 'Code'
+            label: 'Front End'
           },
           {
             type: 'doc',
-            docId: 'guides/guides',
+            docId: 'backend/backend',
             position: 'left',
-            label: 'Guides'
+            label: 'Back End'
           },
+          {
+            type: 'doc',
+            docId: 'devops/devops',
+            position: 'left',
+            label: 'DevOps'
+          },          
           {
             type: 'docSidebar',
             sidebarId: 'cheatsheetSidebar',
@@ -106,9 +112,9 @@ const config = {
           },
           {
             type: 'doc',
-            docId: 'products/products',
+            docId: 'coffee/coffee',
             position: 'left',
-            label: 'Products'
+            label: 'Coffee'
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
