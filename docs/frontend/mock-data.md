@@ -1,7 +1,3 @@
----
-sidebar_position: 2
----
-
 # Mock Data
 
 Using mock data is a common strategy for front-end developers during the development process. Mock data is placeholder data that can be used to simulate real data that will be used by the application when it is deployed. This allows developers to test and develop the front-end of an application without having to wait for the back-end to be fully developed or having to rely on real data.

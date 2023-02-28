@@ -103,6 +103,12 @@ const config = {
             docId: 'devops/devops',
             position: 'left',
             label: 'DevOps'
+          },
+          {
+            type: 'doc',
+            docId: 'philosophy/philosophy',
+            position: 'left',
+            label: 'Philosophy'
           },          
           {
             type: 'docSidebar',
