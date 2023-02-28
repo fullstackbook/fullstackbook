@@ -13,3 +13,19 @@ SQLAlchemy is a popular ORM for Python that provides a flexible and powerful int
 ActiveRecord is a built-in ORM for Ruby on Rails that provides a simple and intuitive interface for working with databases. ActiveRecord provides features such as automatic database schema generation, associations between models, and transaction management.
 
 ORMs can greatly simplify the process of working with databases, especially for developers who are not familiar with SQL. By providing a high-level interface to the database, ORMs allow developers to focus on writing application code, while the ORM handles the complexities of interacting with the database. However, ORMs are not always the best choice for every project, and some developers prefer to work with SQL directly.
+
+| Language | ORM Libraries |
+|----------|---------------|
+| JavaScript | Sequelize, TypeORM, Prisma |
+| Python | SQLAlchemy, Django ORM, Peewee |
+| Java | Hibernate, MyBatis, Spring Data JPA |
+| C# | Entity Framework, Dapper, NHibernate |
+| C++ | ODB, SOCI, Qt SQL |
+| PHP | Laravel Eloquent, Doctrine, Propel |
+| C | SQLite, LMDB, Tokyo Cabinet |
+| Go | GORM, XORM, Ent |
+| Rust | Diesel, sqlx, prisma |
+| Ruby | ActiveRecord, Sequel, ROM |
+| Scala | Slick, Anorm, Quill |
+| Elixir | Ecto, moebius, postgrex |
+
