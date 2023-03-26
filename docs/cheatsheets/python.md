@@ -47,6 +47,12 @@ a.count(1) # value
 
 # reverse
 a.reverse()
+
+# min
+min(a)
+
+# max
+max(a)
 ```
 
 ## String

@@ -25,6 +25,12 @@ for (int x : a) {
 
 // sort
 Arrays.sort(a);
+
+// min
+Collections.min(Arrays.asList(a));
+
+// max
+Collections.max(Arrays.asList(a));
 ```
 
 ```java
@@ -158,6 +164,12 @@ Collections.sort(arr, (a, b) -> a - b);
 // remove
 arr.remove(0); // index or object
 arr.clear();
+
+// min
+Collections.min(arr);
+
+// max
+Collections.max(arr);
 ```
 
 ## Heap

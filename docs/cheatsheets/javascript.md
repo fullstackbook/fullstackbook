@@ -56,6 +56,12 @@ a.map((x) => x * 2)
 
 // reverse
 a.reverse()
+
+// min
+Math.min(a)
+
+// max
+Math.max(a)
 ```
 
 ## String
