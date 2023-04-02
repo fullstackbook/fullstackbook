@@ -19,18 +19,18 @@ for (int i = 0; i < a.length; i++) {
     System.out.println(a[i]);
 }
 
-for (int x : a) {
-    System.out.println(x);
+for (int n : a) {
+    System.out.println(n);
 }
 
 // sort
 Arrays.sort(a);
 
 // min
-Collections.min(Arrays.asList(a));
+int min = Arrays.stream(a).min().getAsInt();
 
 // max
-Collections.max(Arrays.asList(a));
+int max = Arrays.stream(a).max().getAsInt();
 ```
 
 ```java
@@ -206,6 +206,28 @@ pq.remove(1); // object
 ```
 
 ```java
+// heap with pair
+
+// create min heap
+PriorityQueue<Pair<Integer,Integer>> pq = new PriorityQueue<>((a,b) -> a.getValue() - b.getValue());
+
+// create max heap
+PriorityQueue<Pair<Integer,Integer>> pq = new PriorityQueue<>((a,b) -> b.getValue() - a.getValue());
+
+// insert
+pq.add(new Pair(1, 2));
+
+// access
+Pair<Integer, Integer> pair = pq.peek();
+pair.getKey();
+pair.getValue();
+
+// access and remove
+Pair<Integer, Integer> pair2 = pq.poll();
+
+```
+
+```java
 // heap with map entry
 
 // import
@@ -237,6 +259,14 @@ entry.getValue();
 
 // access and remove
 Map.Entry<Integer, Integer> entry2 = pq.poll();
+```
+
+```java
+// heap with int array
+
+PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+pq.add(new int[]{1, 2});
+int[] arr = pq.poll();
 ```
 
 ## Queue
