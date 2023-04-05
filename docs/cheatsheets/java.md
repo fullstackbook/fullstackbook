@@ -124,6 +124,11 @@ for (String x : set) {
 
 // remove
 set.remove("foo");
+
+// hashset with array list as key
+HashSet<List<Integer>> set = new HashSet<>();
+set.add(Arrays.asList(1,2));
+set.contains(Arrays.asList(1,2));
 ```
 
 ## ArrayList

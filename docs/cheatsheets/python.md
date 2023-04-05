@@ -169,6 +169,12 @@ for x in s:
 
 # remove
 s.remove("foo")
+
+# set with tuple as key
+s.add((1,2))
+(1,2) in s
+(1,2) not in s
+
 ```
 
 ## Heap
