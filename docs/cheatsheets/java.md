@@ -78,6 +78,7 @@ map.put("foo", "bar");
 // access
 map.get("foo");
 map.getOrDefault("foo", "bar");
+map.containsKey("foo");
 
 // size
 map.size();
