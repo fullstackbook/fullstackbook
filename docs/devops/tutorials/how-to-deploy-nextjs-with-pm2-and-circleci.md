@@ -5,7 +5,8 @@ title: How To Deploy Next.js With PM2 And CircleCI
 
 # How To Deploy Next.js with PM2 and CircleCI
 
-- GitHub: 
+- GitHub: https://github.com/travisluong/fullstackbook-nextjs-pm2-circleci
+- YouTube: https://youtu.be/NveYyDT7UWk
 
 ## Prerequisite
 
@@ -53,22 +54,6 @@ workflows:
       - build-and-test
 
 ```
-
-## Set up deploy key on GitHub
-
-- Objective: Prepare for deployment with a GitHub deployment key.
-- On the server:
-  - Run the ssh-keygen procedure.
-
-        ssh-keygen
-
-  - Copy the public key.
-
-        cat ~/.ssh/id_rsa.pub
-
-- On GitHub:
-  - Go to the repo Settings > Deploy keys > Add deploy key
-  - Paste the public key and click Add key.
 
 ## Deploy to EC2 Instance
 
