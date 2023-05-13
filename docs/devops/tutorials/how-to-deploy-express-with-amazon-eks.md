@@ -136,6 +136,18 @@
 
       curl af220a880523a491a991ecc793ae1da2-125775810.us-west-2.elb.amazonaws.com
 
+## Deploy Script
+
+- Use this script to deploy latest commits.
+
+```
+LATEST_SHA=$(git rev-parse HEAD)
+docker build -t express-eks:$LATEST_SHA .
+docker tag express-eks:$LATEST_SHA 207100238581.dkr.ecr.us-east-2.amazonaws.com/express-eks:$LATEST_SHA
+docker push 207100238581.dkr.ecr.us-east-2.amazonaws.com/express-eks:$LATEST_SHA
+kubectl set image deployment/myapp myapp=207100238581.dkr.ecr.us-east-2.amazonaws.com/express-eks:$LATEST_SHA -n default
+```
+
 ## Set up AWS Load Balancer Controller
 
 For more complex traffic routing, see [how-to-set-up-aws-load-balancer-controller.md](./how-to-set-up-aws-load-balancer-controller.md).
