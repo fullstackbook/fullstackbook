@@ -1,7 +1,7 @@
-# How To Set Up CircleCI Pipeline To Deploy Express To Amazon EKS
+# How To Deploy Express With Amazon EKS And CircleCI
 
-- YouTube: https://youtu.be/4NUrGJXt1cw
-- GitHub: git@github.com:travisluong/fullstackbook-express-eks.git
+- YouTube:
+- GitHub: https://github.com/travisluong/fullstackbook-express-eks-circleci
 
 ## Prerequisite
 
