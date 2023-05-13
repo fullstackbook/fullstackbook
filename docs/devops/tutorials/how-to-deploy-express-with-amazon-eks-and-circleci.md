@@ -15,6 +15,10 @@
     - Give the group the following permissions:
       - AmazonEC2ContainerRegistryFullAccess
       - AmazonEKSClusterPolicy
+      - AmazonEKS_CNI_Policy
+      - AmazonEKSWorkerNodePolicy
+      - AmazonEKSVPCResourceController
+      - AmazonEKSLocalOutpostClusterPolicy
     - Make sure the user belongs to the group.
     - Create AWS Access Key ID and AWS Secret Access Key for the user.
 
