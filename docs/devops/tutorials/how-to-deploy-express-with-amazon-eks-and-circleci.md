@@ -1,6 +1,6 @@
 # How To Deploy Express With Amazon EKS And CircleCI
 
-- YouTube:
+- YouTube: https://youtu.be/ojOnxQwC28k
 - GitHub: https://github.com/travisluong/fullstackbook-express-eks-circleci
 
 ## Prerequisite
