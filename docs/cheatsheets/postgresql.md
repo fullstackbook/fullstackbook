@@ -45,7 +45,7 @@ SELECT * FROM table_name LIMIT 10;
 CREATE INDEX index_name ON table_name (column1);
 ```
 
-## Administration
+## User Administration
 
 ```sql
 -- Create a new user
@@ -63,62 +63,171 @@ ALTER USER username WITH PASSWORD 'new_password';
 -- Delete a user
 DROP USER username;
 
--- Create a new schema
-CREATE SCHEMA schema_name;
+-- List all users and their attributes
+SELECT * FROM pg_user;
 
--- Grant privileges to a schema
-GRANT privilege ON schema schema_name TO user;
+-- Grant a role to a user
+GRANT role_name TO username;
 
--- Revoke privileges from a schema
-REVOKE privilege ON schema schema_name FROM user;
+-- Remove a role from a user
+REVOKE role_name FROM username;
 
--- Show all users and their attributes
-\du
+-- List all roles and their attributes
+SELECT * FROM pg_roles;
 
--- Show all schemas in the current database
-\dn
+-- Create a new role
+CREATE ROLE role_name;
 
--- Show all tables in a schema
-\dt schema_name.*
+-- Grant privileges to a role
+GRANT privilege ON object TO role_name;
 
--- Show all indexes on a table
-\di table_name
+-- Revoke privileges from a role
+REVOKE privilege ON object FROM role_name;
 
--- Show all triggers on a table
-\dtr table_name
+-- Delete a role
+DROP ROLE role_name;
 
--- Show all foreign keys on a table
-\dT+ table_name
+-- Create a group role
+CREATE ROLE group_role_name WITH ROLE role_name;
 
--- Show database size and other information
-SELECT pg_size_pretty(pg_database_size('database_name'));
+-- Add a user to a group role
+GRANT group_role_name TO username;
 
--- Show current PostgreSQL configuration settings
-SHOW ALL;
+-- Remove a user from a group role
+REVOKE group_role_name FROM username;
 
--- Reload the configuration files without restarting PostgreSQL
-SELECT pg_reload_conf();
+-- List all objects owned by a user
+SELECT * FROM pg_catalog.pg_class WHERE relowner = 'username';
 
--- Start/stop/restart PostgreSQL service
-sudo systemctl start/stop/restart postgresql
+-- Transfer ownership of an object to a user
+ALTER TABLE table_name OWNER TO new_owner;
 
--- Backup a database
-pg_dump database_name > backup_file.sql
+-- List all privileges for an object
+SELECT grantee, privilege_type FROM information_schema.table_privileges WHERE table_name = 'table_name';
 
--- Restore a database
-psql -f backup_file.sql database_name
+-- List all privileges for a user
+SELECT * FROM information_schema.role_table_grants WHERE grantee = 'username';
+```
 
--- Vacuum a table
-VACUUM table_name;
+## psql
 
--- Analyze a table
-ANALYZE table_name;
+```sql
+-- Connect to a PostgreSQL server
+psql -h hostname -p port -U username -d database_name
 
--- Show autovacuum settings for a table
-SELECT relname, autovacuum_enabled, autovacuum_vacuum_scale_factor, autovacuum_analyze_scale_factor
-FROM pg_stat_all_tables WHERE relname = 'table_name';
+-- Connect to a PostgreSQL server using a Unix domain socket
+psql -h /path/to/socket -U username -d database_name
 
--- Show a list of all running queries
-SELECT * FROM pg_stat_activity;
+-- Connect to a PostgreSQL server and run a single SQL command
+psql -h hostname -p port -U username -d database_name -c "SQL command"
+
+-- Execute a SQL script file
+psql -h hostname -p port -U username -d database_name -f script_file.sql
+
+-- Display help for psql commands
+\?
+
+-- List available databases
+\l
+
+-- Connect to a specific database
+\c database_name
+
+-- List available tables in the current database
+\dt
+
+-- Describe a table
+\d table_name
+
+-- List available functions in the current database
+\df
+
+-- Describe a function
+\df+ function_name
+
+-- Execute a SQL command and display results
+SELECT * FROM table_name;
+
+-- Display query output in an aligned format
+\x auto
+
+-- Display query output in a vertical format
+\x on
+
+-- Display query output in a unaligned format
+\x off
+
+-- Display query execution time
+\timing on
+
+-- Display psql output in a pager
+\setenv PAGER less
+\pset pager always
+
+-- Change the psql prompt
+\set PROMPT1 '%[%033[1;32m%]%n@%/%R%[%033[0m%]%# '
+
+-- Display previous command(s)
+\s
+
+-- Edit the current query buffer
+\edit
+
+-- Save the current query buffer to a file
+\o file_name
+
+-- Execute a command from a file
+\i file_name
+
+-- Clear the screen
+\! clear
+
+-- Quit psql
+\q
+
+
+```
+
+## Backup and Restore Data
+
+```sh
+-- Create a backup of a database to a file
+pg_dump -Fc database_name > backup_file.dump
+
+-- Create a backup of a specific table to a file
+pg_dump -Fc -t table_name database_name > backup_file.dump
+
+-- Restore a backup from a file
+pg_restore -d database_name backup_file.dump
+
+-- Restore a specific table from a backup file
+pg_restore -t table_name -d database_name backup_file.dump
+
+-- Restore a backup with custom options
+pg_restore --dbname=database_name --clean --create backup_file.dump
+
+-- Create a plain-text SQL script of a database
+pg_dump -s database_name > backup_file.sql
+
+-- Restore a plain-text SQL script to a database
+psql -d database_name -f backup_file.sql
+
+-- Dump a database to a compressed file
+pg_dump -Z9 database_name > backup_file.sql.gz
+
+-- Restore a compressed backup file
+gunzip -c backup_file.sql.gz | psql -d database_name
+
+-- Dump a database and exclude certain tables
+pg_dump -Fc -T excluded_table_1 -T excluded_table_2 database_name > backup_file.dump
+
+-- Dump a database with custom options
+pg_dump --dbname=database_name --exclude-table-data=table_name --format=custom --file=backup_file.dump
+
+-- Backup a database to a remote server
+pg_dump -Fc database_name | ssh user@remote_host "cat > backup_file.dump"
+
+-- Restore a database from a remote server
+ssh user@remote_host "cat backup_file.dump" | pg_restore -d database_name
 
 ```
