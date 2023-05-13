@@ -10,7 +10,26 @@
 ## Set Up Environment Variables
 
 - In the AWS Console:
-    - Create AWS Access Key ID and AWS Secret Access Key in the AWS Console for CircleCI.
+    - Create a new user named `circleci`.
+    - Create a group named `cicd`.
+    - Give the group the following permissions:
+      - AmazonEC2ContainerRegistryFullAccess
+      - AmazonEKSClusterPolicy
+    - Make sure the user belongs to the group.
+    - Create AWS Access Key ID and AWS Secret Access Key for the user.
+
+- In local terminal:
+  - Run the following command:
+
+```
+eksctl create iamidentitymapping --cluster my-cluster --region=us-west-2     --arn arn:aws:iam::207100238581:user/circleci --username circleci --group system:masters --no-duplicate-arns
+```
+
+- Note: `system:masters` permissions is granted to the principal that originally created the cluster.
+
+- Troubleshooting:
+  - Run `kubectl describe configmap -n kube-system aws-auth` to view the aws auth.
+  - Run `kubectl edit -n kube-system configmap/aws-auth` to manually edit.
 
 - In CircleCI:
     - Go to Project Settings.
@@ -91,3 +110,4 @@ workflows:
 - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 - https://circleci.com/docs/config-intro/
 - https://circleci.com/docs/workflows/#branch-level-job-execution
+- https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
