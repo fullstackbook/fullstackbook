@@ -4,7 +4,7 @@ title: How To Deploy FastAPI With PM2 And Connect To Redis
 ---
 
 - GitHub: https://github.com/travisluong/fullstackbook-nextjs-pm2
-- YouTube: [How To Deploy FastAPI With PM2 And Connect To AWS Redis](https://youtu.be/vs8jF9kFszM)
+- YouTube: https://youtu.be/vs8jF9kFszM
 
 ## Initial setup
 

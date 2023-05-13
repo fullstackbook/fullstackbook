@@ -1,7 +1,7 @@
 # How To Deploy Express With Amazon EKS
 
-- YouTube: https://www.youtube.com/watch?v=4NUrGJXt1cw
 - GitHub: https://github.com/travisluong/fullstackbook-express-eks
+- YouTube: https://www.youtube.com/watch?v=4NUrGJXt1cw
 
 ## Prerequisites
 

@@ -3,8 +3,8 @@ slug: how-to-deploy-nextjs-with-pm2
 title: How To Deploy Next.js With PM2
 ---
 
-- YouTube: [How To Deploy NextJS With Nginx and PM2](https://youtu.be/IwWQG6lEdQQ)
-- GitHub: https://github.com/travisluong/fullstackbook-nextjs-pm2/tree/fullstackbook-nextjs-pm2
+- GitHub: https://github.com/travisluong/fullstackbook-nextjs-pm2
+- YouTube: https://youtu.be/IwWQG6lEdQQ
 
 ## Initial setup
 

@@ -1,6 +1,7 @@
 # How To Deploy Spring Boot With Amazon EKS
 
-- YouTube: [How To Deploy Spring Boot With Amazon EKS](https://youtu.be/CU8fXHK8Smk)
+- GitHub: https://github.com/travisluong/fullstackbook-springboot-eks
+- YouTube: https://youtu.be/CU8fXHK8Smk
 
 ## Prerequisites
 
@@ -18,7 +19,7 @@
 
 - Create a Hello Controller `HelloController.java`.
     ```java
-    package com.example.demo.controller;
+    package com.example.fullstackbookspringbooteks;
 
     import org.springframework.web.bind.annotation.GetMapping;
     import org.springframework.web.bind.annotation.RestController;
@@ -37,8 +38,8 @@
     ```Dockerfile
     FROM openjdk:17
     WORKDIR /usr/src/myapp
-    COPY target/demo-0.0.1-SNAPSHOT.jar /usr/src/myapp
-    CMD ["java", "-jar", "/usr/src/myapp/demo-0.0.1-SNAPSHOT.jar"]
+    COPY target/fullstackbook-springboot-eks-0.0.1-SNAPSHOT.jar /usr/src/myapp
+    CMD ["java", "-jar", "/usr/src/myapp/fullstackbook-springboot-eks-0.0.1-SNAPSHOT.jar"]
     ```
 
 - Create an executable jar.
