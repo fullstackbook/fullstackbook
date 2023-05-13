@@ -43,11 +43,11 @@
     ```
 - Build image.
 
-      docker build -t hello .
+      docker build -t express-eks .
 
 - Run container.
 
-      docker run -it --rm --name my-running-app myapp
+      docker run -p 3000:3000 -it --rm --name express-eks-run express-eks
 
 ## Elastic Container Registry (ECR) Setup
 
