@@ -1,6 +1,7 @@
 # FastAPI psycopg3 API
 
 - GitHub: https://github.com/travisluong/fullstackbook-fastapi-psycopg3
+- YouTube: https://youtu.be/Ep6XExNOPSc
 
 ## Command Line
 
