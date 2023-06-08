@@ -214,6 +214,11 @@ from functools import lru_cache
 
 from pydantic import BaseSettings
 
+# uncomment to see psycopg.pool logs
+# import logging
+# logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+# logging.getLogger("psycopg.pool").setLevel(logging.INFO)
+
 
 class Settings(BaseSettings):
     db_user: str
@@ -316,3 +321,9 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=fastapi_psycopg3
 ```
+
+## References
+
+- https://www.psycopg.org/psycopg3/
+- https://www.psycopg.org/psycopg3/docs/
+- https://github.com/psycopg/psycopg/issues/395
