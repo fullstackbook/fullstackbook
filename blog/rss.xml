@@ -11,7 +11,7 @@
         <item>
             <title><![CDATA[First Blog Post]]></title>
             <link>https://www.fullstackbook.com/blog/first-blog-post</link>
-            <guid>first-blog-post</guid>
+            <guid>https://www.fullstackbook.com/blog/first-blog-post</guid>
             <pubDate>Sun, 31 Jul 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Full Stack Book is under construction. 🚧]]></description>
             <content:encoded><![CDATA[<p>Full Stack Book is under construction. 🚧</p>]]></content:encoded>
