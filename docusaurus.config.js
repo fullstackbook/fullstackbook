@@ -77,6 +77,12 @@ const config = {
           },
           {
             type: 'doc',
+            docId: 'courses/courses',
+            position: 'left',
+            label: 'Courses'
+          },
+          {
+            type: 'doc',
             docId: 'business/business',
             position: 'left',
             label: 'Business',

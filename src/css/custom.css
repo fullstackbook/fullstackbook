@@ -33,3 +33,16 @@ iframe {
   display: block;
   margin: auto;
 }
+
+.enroll-btn {
+  background-color: #205d3b;
+  padding: 20px;
+  color: #ffffff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 24px;
+  max-width: 320px;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
