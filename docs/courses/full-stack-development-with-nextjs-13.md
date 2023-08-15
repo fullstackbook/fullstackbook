@@ -10,6 +10,36 @@ Delve into this immersive learning experience structured as a step-by-step tutor
 
 This course is ideally suited for students possessing a foundational understanding of programming. However, even if you lack prior programming experience, your innate technical aptitude will be nurtured through our meticulously crafted tutorials, allowing you to seamlessly engage with the content and thrive in your learning journey.
 
+What you’ll learn
+
+- How to use NextJS to build a simple social media app
+- How to create modular React components
+- How to work with TypeScript
+- How to work with PostgreSQL
+- How to work with pg, a low level database driver for NodeJS
+- How to secure the app with json web token authentication (JWT)
+- How to implement simple role based authorization logic
+- How to create, deploy, and secure cron jobs using Vercel Cron
+- How to run scripts locally and on production
+- How to deploy the app to Vercel
+- How to style the app with TailwindCSS
+- How to use SWR for data fetching and mutations
+- How to use Postman to test an API
+- How to use NextJS route groups to organize routes
+- How to use Git and GitHub for source control
+
+Are there any course requirements or prerequisites?
+
+- No programming experience is needed, but some is recommended
+- Basic knowledge of HTML, CSS, JavaScript, Git, and SQL is recommended
+- Basic computer skills
+
+Who this course is for:
+
+- Beginner and intermediate developers looking to learn Full Stack Development with NextJS
+- Pro developers looking to learn more about NextJS 13 features like App Router
+- Anyone wishing to learn how to build a web app using modern web technologies
+
 Full Stack Development with Next.js 13 Course on Udemy:
 
 Launch Discount 94% Off
