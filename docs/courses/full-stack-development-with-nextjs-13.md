@@ -1,5 +1,9 @@
 # Full Stack Development with Next.js 13
 
+![Full Stack Development with Next.js 13](\img\full-stack-development-with-nextjs-13.png)
+
+## Description
+
 Drawing inspiration from Meta's recent unveiling of Threads, this comprehensive course is meticulously crafted to empower students with the skills and knowledge needed to construct their very own Twitter Clone. Immerse yourself in a dynamic learning journey designed to mirror the authentic design and development processes of the real world. Through this course, you'll master indispensable proficiencies essential for crafting modern web applications employing cutting-edge tools and technologies.
 
 In the ever-evolving landscape of the tech industry, the demand for Full Stack Developers is at an all-time high. These technical polymaths excel in Front End Development, Back End Development, and DevOps, often spearheading entire feature sets and projects from inception to deployment. Their versatility renders them indispensable assets, equally sought after by startups and corporate giants alike.
@@ -10,7 +14,7 @@ Delve into this immersive learning experience structured as a step-by-step tutor
 
 This course is ideally suited for students possessing a foundational understanding of programming. However, even if you lack prior programming experience, your innate technical aptitude will be nurtured through our meticulously crafted tutorials, allowing you to seamlessly engage with the content and thrive in your learning journey.
 
-What you’ll learn
+## What you’ll learn
 
 - How to use NextJS to build a simple social media app
 - How to create modular React components
@@ -28,21 +32,25 @@ What you’ll learn
 - How to use NextJS route groups to organize routes
 - How to use Git and GitHub for source control
 
-Are there any course requirements or prerequisites?
+## Are there any course requirements or prerequisites?
 
 - No programming experience is needed, but some is recommended
 - Basic knowledge of HTML, CSS, JavaScript, Git, and SQL is recommended
 - Basic computer skills
 
-Who this course is for:
+## Who this course is for:
 
 - Beginner and intermediate developers looking to learn Full Stack Development with NextJS
 - Pro developers looking to learn more about NextJS 13 features like App Router
 - Anyone wishing to learn how to build a web app using modern web technologies
 
-Full Stack Development with Next.js 13 Course on Udemy:
+## Pricing
 
-Launch Discount 94% Off
+Original Price: ~~$199.99~~
+
+Limited Time Discount: 94% Off
+
+Current Price: $12.99
 
 Coupon Code: 54345E62C72E39781D45
 
