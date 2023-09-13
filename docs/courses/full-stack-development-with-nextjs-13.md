@@ -20,6 +20,12 @@
 - How to use NextJS route groups to organize routes
 - How to use Git and GitHub for source control
 
+## Requirements
+
+- No programming experience is needed, but some is recommended
+- Basic knowledge of HTML, CSS, JavaScript, Git, and SQL is recommended
+- Basic computer skills
+
 ## Description
 
 Drawing inspiration from Meta's recent unveiling of Threads, this comprehensive course is meticulously crafted to empower students with the skills and knowledge needed to construct their very own Twitter Clone. Immerse yourself in a dynamic learning journey designed to mirror the authentic design and development processes of the real world. Through this course, you'll master indispensable proficiencies essential for crafting modern web applications employing cutting-edge tools and technologies.
@@ -31,12 +37,6 @@ Upon completing this transformative course, you will have successfully conceptua
 Delve into this immersive learning experience structured as a step-by-step tutorial series. Seamlessly follow along on your computer as you unlock the secrets of web development. Beyond the lines of code, each tutorial will unravel the underlying thought processes, providing you with not only the "how" but also the essential "why" behind every strategic decision.
 
 This course is ideally suited for students possessing a foundational understanding of programming. However, even if you lack prior programming experience, your innate technical aptitude will be nurtured through our meticulously crafted tutorials, allowing you to seamlessly engage with the content and thrive in your learning journey.
-
-## Are there any course requirements or prerequisites?
-
-- No programming experience is needed, but some is recommended
-- Basic knowledge of HTML, CSS, JavaScript, Git, and SQL is recommended
-- Basic computer skills
 
 ## Who this course is for:
 
