@@ -14,9 +14,9 @@ Whether you're delving into HTML, CSS, JavaScript, databases, server-side script
 
 So, if you're ready to embark on an exciting journey towards becoming a proficient and versatile full stack developer, explore our array of courses below. Regardless of your current skill level or career aspirations, we are committed to helping you unlock your full potential and embark on a fulfilling career in web development. Let's dive in and transform your passion for coding into a tangible skill set that opens doors to limitless opportunities in the digital realm.
 
-## FastAPI Fundamentals: API Development
+<!-- ## FastAPI Fundamentals: API Development
 
-[![FastAPI Fundamentals: API Development](\img\fastapi-fundamentals-api-development.png)](/courses/fastapi-fundamentals-api-development)
+[![FastAPI Fundamentals: API Development](\img\fastapi-fundamentals-api-development.png)](/courses/fastapi-fundamentals-api-development) -->
 
 ## Full Stack Development with Next.js 13
 

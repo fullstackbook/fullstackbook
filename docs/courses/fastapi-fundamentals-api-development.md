@@ -1,3 +1,7 @@
+---
+draft: true
+---
+
 # FastAPI Fundamentals: API Development
 
 ![FastAPI Fundamentals: API Development](\img\fastapi-fundamentals-api-development.png)
