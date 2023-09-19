@@ -1,17 +1,21 @@
-import React from 'react';
-import clsx from 'clsx';
-import styles from './styles.module.css';
+import React from "react";
+import clsx from "clsx";
+import styles from "./styles.module.css";
+
+import CodeFeatureImageUrl from "@site/static/img/code-feature.png";
+import GuideFeatureImageUrl from "@site/static/img/guides-feature.png";
+import CheatSheetsFeatureImageUrl from "@site/static/img/cheatsheets-feature.png";
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  imageUrl: string;
   description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Code',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: "Code",
+    imageUrl: CodeFeatureImageUrl,
     description: (
       <>
         Boilerplates and code snippets of common full stack development patterns
@@ -19,30 +23,26 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 'Guides',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: "Guides",
+    imageUrl: GuideFeatureImageUrl,
     description: (
-      <>
-        Step by step guides on common full stack development tasks
-      </>
+      <>Step by step guides on common full stack development tasks</>
     ),
   },
   {
-    title: 'Cheat Sheets',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: "Cheat Sheets",
+    imageUrl: CheatSheetsFeatureImageUrl,
     description: (
-      <>
-        Cheat sheets for programming languages and other technologies
-      </>
+      <>Cheat sheets for programming languages and other technologies</>
     ),
   },
 ];
 
-function Feature({ title, Svg, description }: FeatureItem) {
+function Feature({ title, imageUrl, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx("col col--4")}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        <img src={imageUrl} />
       </div>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
