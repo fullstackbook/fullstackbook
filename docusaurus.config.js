@@ -9,7 +9,7 @@ const config = {
   title: 'Full Stack Book',
   tagline: 'The TL;DR Guide Book For Full Stack Developers',
   url: 'https://www.fullstackbook.com',
-  baseUrl: '/',
+  baseUrl: '/fullstackbook/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
