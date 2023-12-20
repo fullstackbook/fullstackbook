@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://fullstackbook.github.io/fullstackbook/blog</id>
+    <id>https://fullstackbook.github.io/blog</id>
     <title>Full Stack Book Blog</title>
     <updated>2022-07-31T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://fullstackbook.github.io/fullstackbook/blog"/>
+    <link rel="alternate" href="https://fullstackbook.github.io/blog"/>
     <subtitle>Full Stack Book Blog</subtitle>
-    <icon>https://fullstackbook.github.io/fullstackbook/img/favicon.ico</icon>
+    <icon>https://fullstackbook.github.io/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[First Blog Post]]></title>
-        <id>https://fullstackbook.github.io/fullstackbook/blog/first-blog-post</id>
-        <link href="https://fullstackbook.github.io/fullstackbook/blog/first-blog-post"/>
+        <id>https://fullstackbook.github.io/blog/first-blog-post</id>
+        <link href="https://fullstackbook.github.io/blog/first-blog-post"/>
         <updated>2022-07-31T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Full Stack Book is under construction. 🚧]]></summary>
         <content type="html"><![CDATA[<p>Full Stack Book is under construction. 🚧</p>]]></content>
