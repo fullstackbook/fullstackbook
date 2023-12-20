@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Full Stack Book Blog</title>
-        <link>https://www.fullstackbook.com/blog</link>
+        <link>https://fullstackbook.github.io/blog</link>
         <description>Full Stack Book Blog</description>
         <lastBuildDate>Sun, 31 Jul 2022 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>en</language>
         <item>
             <title><![CDATA[First Blog Post]]></title>
-            <link>https://www.fullstackbook.com/blog/first-blog-post</link>
-            <guid>https://www.fullstackbook.com/blog/first-blog-post</guid>
+            <link>https://fullstackbook.github.io/blog/first-blog-post</link>
+            <guid>https://fullstackbook.github.io/blog/first-blog-post</guid>
             <pubDate>Sun, 31 Jul 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Full Stack Book is under construction. 🚧]]></description>
             <content:encoded><![CDATA[<p>Full Stack Book is under construction. 🚧</p>]]></content:encoded>
