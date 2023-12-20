@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Full Stack Book',
   tagline: 'The TL;DR Guide Book For Full Stack Developers',
-  url: 'https://www.fullstackbook.com',
+  url: 'https://fullstackbook.github.io',
   baseUrl: '/fullstackbook/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
